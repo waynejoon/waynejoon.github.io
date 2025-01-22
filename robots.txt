@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://waynejoon.github.io/sitemap.xml
