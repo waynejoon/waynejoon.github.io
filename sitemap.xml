@@ -2,12 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://waynejoons.icu/posts/</loc>
+    <lastmod>2025-01-24T11:52:03+00:00</lastmod>
+  </url><url>
+    <loc>https://waynejoons.icu/</loc>
+    <lastmod>2025-01-24T11:52:03+00:00</lastmod>
+  </url><url>
     <loc>https://waynejoons.icu/archives/</loc>
   </url><url>
     <loc>https://waynejoons.icu/categories/</loc>
   </url><url>
     <loc>https://waynejoons.icu/tags/</loc>
-  </url><url>
-    <loc>https://waynejoons.icu/</loc>
   </url>
 </urlset>
