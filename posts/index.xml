@@ -11,7 +11,14 @@
     </image>
     <generator>Hugo -- 0.141.0</generator>
     <language>en</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
     <atom:link href="https://waynejoons.icu/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My 1st post</title>
+      <link>https://waynejoons.icu/posts/article_1/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://waynejoons.icu/posts/article_1/</guid>
+      <description>Life is a journey</description>
+    </item>
   </channel>
 </rss>
