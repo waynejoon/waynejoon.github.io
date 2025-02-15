@@ -20,5 +20,12 @@
       <guid>https://waynejoons.icu/posts/article_1/</guid>
       <description>Life is a journey</description>
     </item>
+    <item>
+      <title>Friends</title>
+      <link>https://waynejoons.icu/friends/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://waynejoons.icu/friends/</guid>
+      <description>friends</description>
+    </item>
   </channel>
 </rss>
