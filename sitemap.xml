@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://waynejoons.icu/categories/</loc>
-    <lastmod>2025-01-25T23:55:23+08:00</lastmod>
-  </url><url>
     <loc>https://waynejoons.icu/posts/</loc>
     <lastmod>2025-01-25T23:55:23+08:00</lastmod>
   </url><url>
@@ -14,16 +11,15 @@
     <loc>https://waynejoons.icu/</loc>
     <lastmod>2025-01-25T23:55:23+08:00</lastmod>
   </url><url>
-    <loc>https://waynejoons.icu/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</loc>
-    <lastmod>2025-01-25T23:55:23+08:00</lastmod>
-  </url><url>
-    <loc>https://waynejoons.icu/tags/%E7%8E%84%E6%9C%BA%E9%9D%B6%E5%9C%BA/</loc>
+    <loc>https://waynejoons.icu/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</loc>
     <lastmod>2025-01-25T23:55:23+08:00</lastmod>
   </url><url>
     <loc>https://waynejoons.icu/posts/article_1/</loc>
     <lastmod>2025-01-25T23:55:23+08:00</lastmod>
   </url><url>
     <loc>https://waynejoons.icu/archives/</loc>
+  </url><url>
+    <loc>https://waynejoons.icu/categories/</loc>
   </url><url>
     <loc>https://waynejoons.icu/friends/</loc>
   </url><url>
