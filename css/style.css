@@ -10762,6 +10762,9 @@ body > .section {
   overflow: visible;
   border-radius: 4px;
 }
+.card:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.1);
+}
 .card + .card,
 .card + .column-right-shadow {
   margin-top: 1.5rem;
@@ -10858,29 +10861,21 @@ article.article .article-tags {
   display: flex;
   flex-wrap: wrap;
 }
-.article {
-  counter-reset: section;
+article.article #toc .menu-list .level .level-left .level-item:first-child {
+  display: inline-block !important;
+  margin-right: 0.5rem !important;
+  font-weight: bold !important;
+  color: #3273dc !important;
+  min-width: auto !important;
+  visibility: visible !important;
 }
-.article h2 {
-  counter-reset: sub-section;
+article.article #toc .menu-list .level-item {
+  display: inline-block !important;
+  visibility: visible !important;
 }
-.article h3 {
-  counter-reset: composite;
-}
-.article h4 {
-  counter-reset: detail;
-}
-.article h2:before {
-  content: counter(section) " ";
-  counter-increment: section;
-}
-.article h3:before {
-  content: counter(section) "." counter(sub-section) " ";
-  counter-increment: sub-section;
-}
-.article h4:before {
-  content: counter(section) "." counter(sub-section) "." counter(composite) " ";
-  counter-increment: composite;
+article.article #toc .menu-list a .level .level-left .level-item {
+  display: inline-block !important;
+  visibility: visible !important;
 }
 .rtl {
   direction: rtl;
