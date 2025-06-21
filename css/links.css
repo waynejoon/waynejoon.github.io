@@ -1,0 +1,167 @@
+/* 友链页面样式 */
+.friends-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 固定为两列 */
+    gap: 20px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.friendurl {
+    text-decoration: none !important;
+    color: inherit !important;
+    box-shadow: none !important;
+    display: block;
+}
+
+.friendurl:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.frienddiv {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    height: auto;
+    min-height: 120px; /* 这里就是导致单个卡片拉长的原因 */
+    display: flex;
+    align-items: center;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.frienddiv:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
+}
+
+/* 暗色主题 */
+.dark .frienddiv {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+.dark .frienddiv:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: #667eea;
+}
+
+.frienddivleft {
+    flex-shrink: 0;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.myfriend {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 2px solid #f0f0f0;
+    transition: transform 0.3s ease;
+}
+
+.frienddiv:hover .myfriend {
+    transform: scale(1.05);
+    border-color: #667eea;
+}
+
+.frienddivright {
+    flex: 1;
+    margin: 0;
+    min-width: 0;
+}
+
+.friendname {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friendinfo {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 暗色主题文字颜色 */
+.dark .friendname {
+    color: #e2e8f0;
+}
+
+.dark .friendinfo {
+    color: #a0aec0;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 1088px) {
+    .friends-container {
+        grid-template-columns: repeat(2, 1fr); /* 保持两列 */
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .friends-container {
+        grid-template-columns: repeat(2, 1fr); /* 在平板上仍保持两列 */
+        gap: 15px;
+        margin: 15px 0;
+    }
+    
+    .frienddiv {
+        padding: 12px; /* 稍微减少内边距以适应更小的卡片 */
+        min-height: 90px;
+    }
+    
+    .myfriend {
+        width: 45px !important;
+        height: 45px !important;
+    }
+    
+    .friendname {
+        font-size: 1.0rem;
+    }
+    
+    .friendinfo {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .friends-container {
+        grid-template-columns: 1fr; /* 在手机上改为单列 */
+    }
+    
+    .frienddiv {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        min-height: 80px;
+    }
+    
+    .frienddivleft {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .friendname {
+        white-space: normal;
+        margin-bottom: 5px;
+    }
+}
