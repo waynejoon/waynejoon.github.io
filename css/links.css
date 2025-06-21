@@ -14,11 +14,41 @@
     color: inherit !important;
     box-shadow: none !important;
     display: block;
+    position: relative; /* 为绝对定位的覆盖层提供参考 */
 }
 
 .friendurl:hover {
     text-decoration: none !important;
     color: inherit !important;
+}
+
+.friendurl:hover .frienddiv {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
+}
+
+.dark .friendurl:hover .frienddiv {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: #667eea;
+}
+
+.friendurl:hover .myfriend {
+    transform: scale(1.05);
+    border-color: #667eea;
+}
+
+/* 添加一个透明的覆盖层来确保整个卡片都可以点击跳转 */
+.friendurl::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10; /* 确保在所有内容之上 */
+    background: transparent;
+    cursor: pointer;
 }
 
 .frienddiv {
@@ -34,12 +64,7 @@
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
-}
-
-.frienddiv:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: #667eea;
+    position: relative; /* 为z-index提供定位上下文 */
 }
 
 /* 暗色主题 */
@@ -48,15 +73,12 @@
     border-color: #4a5568;
 }
 
-.dark .frienddiv:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-color: #667eea;
-}
-
 .frienddivleft {
     flex-shrink: 0;
     margin-right: 20px;
     text-align: center;
+    position: relative; /* 确保z-index生效 */
+    z-index: 1; /* 低于覆盖层 */
 }
 
 .myfriend {
@@ -66,17 +88,24 @@
     object-fit: cover;
     border: 2px solid #f0f0f0;
     transition: transform 0.3s ease;
-}
-
-.frienddiv:hover .myfriend {
-    transform: scale(1.05);
-    border-color: #667eea;
+    /* 强制禁用图片的所有交互 */
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    draggable: false !important;
+    -webkit-user-drag: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 .frienddivright {
     flex: 1;
     margin: 0;
     min-width: 0;
+    position: relative; /* 确保z-index生效 */
+    z-index: 1; /* 低于覆盖层 */
 }
 
 .friendname {
@@ -132,6 +161,16 @@
     .myfriend {
         width: 45px !important;
         height: 45px !important;
+        /* 平板端也禁用图片交互 */
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        draggable: false !important;
+        -webkit-user-drag: none !important;
+        -webkit-touch-callout: none !important;
+        -webkit-tap-highlight-color: transparent !important;
     }
     
     .friendname {
@@ -145,23 +184,58 @@
 
 @media screen and (max-width: 480px) {
     .friends-container {
-        grid-template-columns: 1fr; /* 在手机上改为单列 */
+        grid-template-columns: repeat(2, 1fr); /* 手机端也改为两列 */
+        gap: 10px; /* 减小间距以适应小屏幕 */
     }
     
     .frienddiv {
         flex-direction: column;
+        justify-content: flex-start; /* 改为从顶部开始排列 */
+        align-items: center; /* 水平居中对齐 */
         text-align: center;
-        padding: 15px;
-        min-height: 80px;
+        padding: 12px 8px 8px 8px; /* 上边距稍大，下边距小 */
+        min-height: 110px; /* 稍微减小高度 */
+        position: relative;
     }
     
     .frienddivleft {
-        margin-right: 0;
-        margin-bottom: 10px;
+        margin: 0 0 8px 0; /* 只保留底部间距 */
+        flex-shrink: 0; /* 防止头像区域收缩 */
+    }
+    
+    .myfriend {
+        width: 35px !important; /* 进一步减小头像 */
+        height: 35px !important;
+        /* 手机端强制禁用图片的所有交互 */
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        draggable: false !important;
+        -webkit-user-drag: none !important;
+        -webkit-touch-callout: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .frienddivright {
+        flex: 1; /* 让文字区域占据剩余空间 */
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 文字区域内部垂直居中 */
     }
     
     .friendname {
         white-space: normal;
-        margin-bottom: 5px;
+        margin-bottom: 4px; /* 恢复一些间距 */
+        font-size: 0.9rem; /* 减小字体 */
+        line-height: 1.1;
+    }
+    
+    .friendinfo {
+        font-size: 0.75rem; /* 减小描述文字 */
+        line-height: 1.2;
+        margin: 0; /* 完全移除外边距 */
     }
 }
