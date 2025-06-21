@@ -142,3 +142,4 @@
     $('div.container div.card[data-type=archives]').addClass('is-hidden-mobile');
 
 }(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings));
+
