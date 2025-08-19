@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>玄机靶场 | 日志分析-ssh日志分析 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights"><meta property="og:type" content="blog"><meta property="og:title" content="玄机靶场 | 日志分析-ssh日志分析"><meta property="og:url" content="https://waynejoon.github.io/posts/Xuanji-CTF-SSH-Log-Analysis/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://waynejoon.github.io/img/waynejoon.jpg"><meta property="article:published_time" content="2025-08-19T07:37:26.000Z"><meta property="article:modified_time" content="2025-08-19T07:44:37.579Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="应急响应"><meta property="article:tag" content="玄机靶场"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://waynejoon.github.io/img/waynejoon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/Xuanji-CTF-SSH-Log-Analysis/"},"headline":"玄机靶场 | 日志分析-ssh日志分析","image":["https://oss.waynejoons.icu/picphoto/20250819150456749.png","https://oss.waynejoons.icu/picphoto/20250819132115717.png","https://oss.waynejoons.icu/picphoto/20250819132728634.png","https://oss.waynejoons.icu/picphoto/20250819133240938.png","https://oss.waynejoons.icu/picphoto/20250819134348847.png","https://oss.waynejoons.icu/picphoto/20250819141505256.png","https://oss.waynejoons.icu/picphoto/20250819141749276.png","https://oss.waynejoons.icu/picphoto/image-20250819142357642.png"],"datePublished":"2025-08-19T07:37:26.000Z","dateModified":"2025-08-19T07:44:37.579Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"日志分析-ssh日志分析详解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/Xuanji-CTF-SSH-Log-Analysis/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-08-19T07:37:26.000Z" title="2025/8/19 15:37:26">2025-08-19</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a></span><span class="level-item">10 分钟读完 (大约1454个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">玄机靶场 | 日志分析-ssh日志分析</h1><div class="content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SSH连接端口222，账号：root，密码：toor</p>
+<h2 id="SSH日志分析常用思路"><a href="#SSH日志分析常用思路" class="headerlink" title="SSH日志分析常用思路"></a>SSH日志分析常用思路</h2><p>SSH日志分析是应急响应与安全审计的核心。通过审查配置文件和登录日志，可以快速发现未授权访问、定位攻击源并核查安全基线。标准的分析流程如下：</p>
+<p><strong>1. 审查配置：确认“规则”</strong></p>
+<p>分析日志前，先看SSH服务的核心配置文件 <strong><code>/etc/ssh/sshd_config</code></strong>，了解允许哪些行为</p>
+<ul>
+<li><strong>访问控制</strong>：检查 <code>AllowUsers</code>, <code>AllowGroups</code> 等指令，确定谁可以登录</li>
+<li><strong>认证方式</strong>：检查 <code>PasswordAuthentication</code> 是否开启，是否仅允许密钥登录</li>
+<li><strong>高危设置</strong>：检查 <code>PermitRootLogin</code> 是否允许root直接登录</li>
+</ul>
+<p><strong>2. 分析日志：发现“事件”</strong></p>
+<p>根据系统，主要分析以下认证日志（包括 <code>.1</code>, <code>.gz</code> 等归档文件）：</p>
+<ul>
+<li>Debian&#x2F;Ubuntu: <strong><code>/var/log/auth.log</code></strong></li>
+<li>CentOS&#x2F;RHEL: <strong><code>/var/log/secure</code></strong></li>
+</ul>
+<p>重点关注包含以下关键字的日志条目：</p>
+<ul>
+<li><strong>成功登录</strong>：<code>Accepted password</code> 或 <code>Accepted publickey</code> 等</li>
+<li><strong>登录失败</strong>：<code>Failed password</code> 、<code>Failed publickey</code> 或 <code>invalid user</code> 等</li>
+<li><strong>用户切换&#x2F;提权</strong>：<code>session opened for user</code> (常用于追踪<code>sudo</code>等操作)</li>
+</ul>
+<p><strong>3. 聚合统计：提取“情报”</strong></p>
+<p>使用命令行工具（如 <code>grep</code>, <code>awk</code>, <code>sort</code>, <code>uniq</code>）从海量日志中提取有价值的信息，回答关键问题：</p>
+<ul>
+<li><strong>攻击来源</strong>：哪个IP发起了最多的失败尝试？</li>
+<li><strong>爆破目标</strong>：哪个用户名被攻击次数最多？</li>
+<li><strong>成功渗透</strong>：哪些用户和IP成功登录了系统？</li>
+<li><strong>行为画像</strong>：梳理单个IP或用户的完整活动时间线</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p><img src="https://oss.waynejoons.icu/picphoto/20250819150456749.png"></p>
+<h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤#1"></a>步骤#1</h3><p><strong>可以登录 SSH 的账号数量是多少</strong></p>
+<p>我们先了解什么是<code>sshd_config</code>文件</p>
+<p><code>sshd_config</code> 是 SSH 服务器（sshd）的主配置文件，用于配置 SSH 服务端的各种参数和行为</p>
+<ul>
+<li>设置 SSH 服务器监听的端口号（默认22端口）</li>
+<li>指定允许或禁止的登录方式（密码认证、公钥认证等）</li>
+<li>是否允许 root 账户远程登录</li>
+<li>配置登录超时时间、日志级别、安全策略等</li>
+<li>控制哪些用户或用户组可以通过SSH登录</li>
+</ul>
+<p>查看<code>/etc/ssh/sshd_config</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819132115717.png"></p>
+<p>在最下面那里可以看到只允许<code>SSHD_USER</code>用户组和<code>root</code>用户组进行ssh登录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819132728634.png"></p>
+<p>然后在<code>/etc/group</code>筛选出这两个组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&#x27;^(root|SSHD_USER):&#x27;</span> /etc/group</span><br></pre></td></tr></table></figure>
+
+<p>这个命令的意思是：</p>
+<ul>
+<li><code>-E</code> 参数表示启用扩展正则表达式，支持更多高级符号和语法，如“|”表示或、“()”用于分组、“+”表示重复等，使表达式更简洁易读，匹配功能更强大</li>
+<li><code>^(root|SSHD_USER):</code> 表示匹配以“root:”或“SSHD_USER:”开头的行</li>
+</ul>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819133240938.png"></p>
+<p>root组后面为空，表示这个组<strong>没有附加用户</strong>（也就是没有把别的用户名手动加进组内），默认为root。然后<code>SSHD_USER</code>组有两个用户，分别为toor和root，去重之后可以登录 SSH 的账号就只有toor和root用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;2&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤#2"></a>步骤#2</h3><p><strong>SSH日志中登录成功的日志条数是多少（去除自己登陆产生的两次）</strong></p>
+<p><code>auth.log</code> 是Linux系统记录身份认证相关信息的日志文件，包括用户登录成功、失败、ssh连接、公钥认证和使用sudo等操作的记录。它帮助管理员监控登录情况和发现安全问题，是安全审计的重要依据</p>
+<p>其中<code>auth.log</code>表示最新日志，<code>auth.log.1</code>表示上一轮未压缩归档，<code>auth.log.N.gz</code>表示更早的归档（N为数字）</p>
+<p>进入log日志文件夹，查看当前目录文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/log &amp;&amp; <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819134348847.png"></p>
+<p>我们要分析的是<strong>已归档文件</strong>，也就是<code>auth.log.1</code>和<code>auth.log.2.gz</code></p>
+<p>先解压<code>auth.log.2.gz</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip -d auth.log.2.gz</span><br></pre></td></tr></table></figure>
+
+<p>用<code>gzip</code>命令解压后，会删除原本的<code>.gz</code>压缩文件，并生成新的文件</p>
+<p>然后筛选出包含<code>Accepted password</code>或<code>Accepted publickey</code>的日志记录即可</p>
+<ul>
+<li><strong>Accepted password</strong>：表示通过密码验证成功登录</li>
+<li><strong>Accepted publickey</strong>：表示通过公钥认证成功登录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&quot;Accepted password|Accepted publickey&quot;</span> auth.log.1 auth.log.2 | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819141505256.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;103&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤#3"></a>步骤#3</h3><p><strong>SSH日志中登录成功次数最多的用户的用户名是什么</strong></p>
+<p>用<code>awk</code>筛选登录成功的日志记录即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&quot;Accepted password|Accepted publickey&quot;</span> auth.log.1 auth.log.2 | awk <span class="string">&#x27;&#123;print $9&#125;&#x27;</span> | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250819141749276.png"></p>
+<p>可以看到SSH日志中登录成功次数最多的用户名是toor</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;toor&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-4"><a href="#步骤-4" class="headerlink" title="步骤#4"></a>步骤#4</h3><p><strong>SSH日志中登录失败次数最多的用户以及登录使用的ip是什么(flag:flag{用户名,ip})</strong></p>
+<p>直接筛选出包含<code>Failed password</code>或<code>Failed publickey</code>的记录，然后<code>awk</code>查看用户名和IP地址即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&quot;Failed password|Failed publickey&quot;</span> auth.log.1 auth.log.2 | awk <span class="string">&#x27;&#123;print $9, $(NF-3)&#125;&#x27;</span> | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c | <span class="built_in">sort</span> -n</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>awk &#39;&#123;print $9, $(NF-3)&#125;&#39;</code> 表示打印第9列（用户名）和倒数第4列（登录来源IP，通常日志中IP在倒数第4列）</li>
+<li><code>sort</code> 对结果进行排序</li>
+<li><code>uniq -c</code> 统计相同用户名和IP的出现次数</li>
+<li><code>sort -n</code> 表示按照 <strong>数字大小</strong> 进行排序，而不是按字母ASCII顺序</li>
+</ul>
+<p><img src="https://oss.waynejoons.icu/picphoto/image-20250819142357642.png"></p>
+<p>可以看到SSH日志中登录失败次数最多的用户是root，登录使用的ip是<code>87.163.111.11</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;root,87.163.111.11&#125;</span><br></pre></td></tr></table></figure>
+
+</div><div class="article-licensing box"><div class="licensing-title"><p>玄机靶场 | 日志分析-ssh日志分析</p><p><a href="https://waynejoon.github.io/posts/Xuanji-CTF-SSH-Log-Analysis/">https://waynejoon.github.io/posts/Xuanji-CTF-SSH-Log-Analysis/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-08-19</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应, </a><a class="link-muted" rel="tag" href="/tags/%E7%8E%84%E6%9C%BA%E9%9D%B6%E5%9C%BA/">玄机靶场 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/Xuanji-CTF-Tomcat-Log-Analysis/"><span class="level-item">玄机靶场 | 日志分析-Tomcat日志分析</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#前言"><span class="level-left"><span class="level-item">1</span><span class="level-item">前言</span></span></a></li><li><a class="level is-mobile" href="#SSH日志分析常用思路"><span class="level-left"><span class="level-item">2</span><span class="level-item">SSH日志分析常用思路</span></span></a></li><li><a class="level is-mobile" href="#索引"><span class="level-left"><span class="level-item">3</span><span class="level-item">索引</span></span></a></li><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">4</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#步骤-1"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">步骤#1</span></span></a></li><li><a class="level is-mobile" href="#步骤-2"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">步骤#2</span></span></a></li><li><a class="level is-mobile" href="#步骤-3"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">步骤#3</span></span></a></li><li><a class="level is-mobile" href="#步骤-4"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">步骤#4</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
