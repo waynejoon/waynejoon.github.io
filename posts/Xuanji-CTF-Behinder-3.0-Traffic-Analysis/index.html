@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>玄机靶场 | 冰蝎3.0-jsp流量分析 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights. Here you can learn a lot about cybersecurity knowledge"><meta property="og:type" content="blog"><meta property="og:title" content="玄机靶场 | 冰蝎3.0-jsp流量分析"><meta property="og:url" content="https://waynejoon.github.io/posts/Xuanji-CTF-Behinder-3.0-Traffic-Analysis/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights. Here you can learn a lot about cybersecurity knowledge"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://waynejoon.github.io/img/waynejoon.jpg"><meta property="article:published_time" content="2025-08-29T14:02:19.000Z"><meta property="article:modified_time" content="2025-08-29T14:03:01.012Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="应急响应"><meta property="article:tag" content="玄机靶场"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://waynejoon.github.io/img/waynejoon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/Xuanji-CTF-Behinder-3.0-Traffic-Analysis/"},"headline":"玄机靶场 | 冰蝎3.0-jsp流量分析","image":["https://waynejoon.github.io/img/waynejoon.jpg"],"datePublished":"2025-08-29T14:02:19.000Z","dateModified":"2025-08-29T14:03:01.012Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"冰蝎3.0-jsp流量分析详细题解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/Xuanji-CTF-Behinder-3.0-Traffic-Analysis/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-08-29T14:02:19.000Z" title="2025/8/29 22:02:19">2025-08-29</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a></span><span class="level-item">10 分钟读完 (大约1534个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">玄机靶场 | 冰蝎3.0-jsp流量分析</h1><div class="content"><h2 id="冰蝎3-0流量特征"><a href="#冰蝎3-0流量特征" class="headerlink" title="冰蝎3.0流量特征"></a>冰蝎3.0流量特征</h2><ul>
+<li><strong>Content-Type</strong><br>POST请求的 <code>Content-Type</code> 固定为 <code>application/octet-stream</code>，属于强特征</li>
+</ul>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829203841563.png"></p>
+<ul>
+<li><strong>User-Agent</strong><br>内置了16个 <code>User-Agent</code> 头，通信时会随机挑选一个，但大多为老旧浏览器或罕见设备头，如果同一IP频繁变换UA且为这16个之一，可以高度怀疑是冰蝎</li>
+<li><strong>Accept、Cache-Control</strong><br>Accept头常设为 <code>Accept: text/html, image/gif, image/jpeg, */*; q=.2, */*; q=.2</code> 或类似值，Cache-Control和Pragma常设为<code>no-cache</code>，表示直接从源服务器获取最新的响应，这些是冰蝎流量默认带的HTTP头，普通业务流量较少见</li>
+</ul>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829204637163.png"></p>
+<ul>
+<li><strong>Content-Length&#x2F;请求包长度</strong><br>因为冰蝎3.0使用AES-256加密算法，加密后的数据体积会膨胀，请求包长度一般会很大，超过正常业务范围</li>
+</ul>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829204859874.png"></p>
+<p>想要更深入了解冰蝎3.0可以参考文章：<a target="_blank" rel="noopener" href="https://www.freebuf.com/sectool/247009.html">冰蝎3.0流量特征分析（附特征）</a></p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p><img src="https://oss.waynejoons.icu/picphoto/20250829163939781.png"></p>
+<h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤#1"></a>步骤#1</h3><p><strong>黑客IP是什么？</strong></p>
+<p>先用wireshark语法筛选出http流量</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829164305832.png"></p>
+<p>快速分析一遍流量，大部分都是404，说明黑客正在进行目录扫描。拉到最后那里可以看到有个异常流量，通过<strong>PUT方法</strong>上传了<code>indeX.jsp</code>文件，且在请求头中伪造了多个指向本地地址的字段（如<code>X-Forwarded-For</code>），这种组合是典型的攻击特征，由此可判定该请求为攻击者发起的恶意文件上传行为</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829165356880.png"></p>
+<p>因此黑客IP就是<code>192.168.31.61</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.31.61&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤#2"></a>步骤#2</h3><p><strong>黑客上传的Webshell名是什么？</strong></p>
+<p>继续分析流量包，可以看到攻击者通过POST数据包与<code>indeX.jsp</code>进行通信，且响应内容为加密数据</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829170738501.png"></p>
+<p>因此webshell名就是这个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;indeX.jsp&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤#3"></a>步骤#3</h3><p><strong>黑客上传WebShell的时间是多少？（格式如：flag{YYYY-MM-DD HH:MM:SS}）</strong></p>
+<p>找到刚才黑客通过<strong>PUT方法上传的文件</strong>直接查看时间即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829202010142.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;2025-02-22 07:47:38&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-4"><a href="#步骤-4" class="headerlink" title="步骤#4"></a>步骤#4</h3><p><strong>木马的解密key是什么?</strong></p>
+<p>同样也是PUT方法的那个流量包，右键追踪HTTP流</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829171501675.png"></p>
+<p>可以看到黑客上传的内容，具体利用的漏洞是Tomcat通过PUT方法进行任意文件写入（CVE-2017-12615），感兴趣的可以网上了解一下</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829172047902.png"></p>
+<p>可以看到木马连接密码就在文件内容当中，长度为16字节（128位），一般用于AES对称加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;3f0af7bb4dbcfbd7&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-5"><a href="#步骤-5" class="headerlink" title="步骤#5"></a>步骤#5</h3><p><strong>黑客执行的第一个命令是什么?</strong></p>
+<p>已知黑客是通过POST与<code>indeX.jsp</code>进行通信，我们修改wireshark语法搜索包含<code>indeX.jsp</code>的流量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http contains &quot;indeX.jsp&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829182923377.png"></p>
+<p>然后复制请求体data内容的<strong>ASCII值</strong>，如图所示</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829183018587.png"></p>
+<p>这里用到希潭实验室的蓝队分析工具箱，下载地址：<a target="_blank" rel="noopener" href="https://github.com/abc123info/BlueTeamTools">蓝队分析研判工具箱</a></p>
+<p>把复制的数据和之前得到的密钥放进去解密</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829183611011.png"></p>
+<p>可能受环境影响，我这边显示有点问题，不过内容还是可以看得懂。经过分析，前面几个数据包是冰蝎用于连接用的，分析到第四个时可以看到黑客执行的命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829184827463.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829184509722.png"></p>
+<p>因此黑客执行的第一个命令是<code>ifconfig</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ifconfig&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-6"><a href="#步骤-6" class="headerlink" title="步骤#6"></a>步骤#6</h3><p><strong>黑客上传的文件内容是什么?</strong></p>
+<p>继续分析，发现长度为362的流量记录了创建文件的命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829191553272.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829191722209.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4ZmxhZ3s0ODUzNzViN2IwNmFkODU2YTc4OGMwZDk1MjI5ZjM1Y30=</span><br></pre></td></tr></table></figure>
+
+<p>但是解码后得到一堆乱码，那只能登进目标服务器查看对应文件内容了</p>
+<p>题目没有给出对应的服务器账号密码，需要我们渗透进去，那我们可以仿照前面黑客PUT上传文件的方法，用抓包工具修改发包</p>
+<p>先自己随便选一个协议，生成服务端</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829195750644.png"></p>
+<p>然后复制生成的jsp代码，粘贴到body中，同时修改请求体信息与之前黑客PUT上传的内容一样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PUT /6.jsp/ HTTP/1.1</span><br><span class="line">Host: 你的玄机靶机地址:8081</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:135.0) Gecko/20100101 Firefox/135.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=3F426B8219ACAB91DF13B18D987842BC</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">X-Forwarded-For: 127.0.0.1</span><br><span class="line">X-Originating-IP: 127.0.0.1</span><br><span class="line">X-Remote-IP: 127.0.0.1</span><br><span class="line">X-Remote-Addr: 127.0.0.1</span><br><span class="line">Priority: u=0, i</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 782</span><br><span class="line"></span><br><span class="line">你的冰蝎jsp代码</span><br></pre></td></tr></table></figure>
+
+<p>然后发包即可，状态码显示201表示成功</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200045977.png"></p>
+<p>在冰蝎连接webshell，根据你之前选的协议选择对应的类别即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200227411.png"></p>
+<p>连接后在<strong>文件管理</strong>处，找到<code>/home/xj/up.txt</code>，打开文件查看内容，成功拿到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200345195.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200417431.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;485375b7b06ad856a788c0d95229f35c&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-7"><a href="#步骤-7" class="headerlink" title="步骤#7"></a>步骤#7</h3><p><strong>黑客下载的文件内容是什么?</strong></p>
+<p>继续分析流量包，分析到最后一个请求包时发现有黑客执行下载文件的命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829201051081.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200641835.png"></p>
+<p>对应路径为<code>/opt/apache-tomcat-8.5.19/conf/server.xml</code>，用冰蝎查看对应文件，成功找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829200811216.png"></p>
+<p>当然也可以查看对应的响应包，同样也给出了flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829201003725.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;3aacab9ca36a6894c75048e4faf47052&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-8"><a href="#步骤-8" class="headerlink" title="步骤#8"></a>步骤#8</h3><p><strong>服务器内的flag是什么？</strong></p>
+<p>用冰蝎在服务器内找就可以，最终发现flag在<code>/root/flag.txt</code>里面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250829201249812.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ae1d04dd3d15c6a18f904fe50fdf7eca&#125;</span><br></pre></td></tr></table></figure>
+
+</div><div class="article-licensing box"><div class="licensing-title"><p>玄机靶场 | 冰蝎3.0-jsp流量分析</p><p><a href="https://waynejoon.github.io/posts/Xuanji-CTF-Behinder-3.0-Traffic-Analysis/">https://waynejoon.github.io/posts/Xuanji-CTF-Behinder-3.0-Traffic-Analysis/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-08-29</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应, </a><a class="link-muted" rel="tag" href="/tags/%E7%8E%84%E6%9C%BA%E9%9D%B6%E5%9C%BA/">玄机靶场 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/Xuanji-CTF-Blue-Team-Forensics-3/"><span class="level-item">玄机靶场 | 第九章-blueteam 的小心思3</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">20</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#冰蝎3-0流量特征"><span class="level-left"><span class="level-item">1</span><span class="level-item">冰蝎3.0流量特征</span></span></a></li><li><a class="level is-mobile" href="#索引"><span class="level-left"><span class="level-item">2</span><span class="level-item">索引</span></span></a></li><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">3</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#步骤-1"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">步骤#1</span></span></a></li><li><a class="level is-mobile" href="#步骤-2"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">步骤#2</span></span></a></li><li><a class="level is-mobile" href="#步骤-3"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">步骤#3</span></span></a></li><li><a class="level is-mobile" href="#步骤-4"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">步骤#4</span></span></a></li><li><a class="level is-mobile" href="#步骤-5"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">步骤#5</span></span></a></li><li><a class="level is-mobile" href="#步骤-6"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">步骤#6</span></span></a></li><li><a class="level is-mobile" href="#步骤-7"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">步骤#7</span></span></a></li><li><a class="level is-mobile" href="#步骤-8"><span class="level-left"><span class="level-item">3.8</span><span class="level-item">步骤#8</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
